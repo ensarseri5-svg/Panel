@@ -9,48 +9,45 @@
         body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; }
         .panel { width: 100%; max-width: 450px; background: var(--card-bg); padding: 30px; border-radius: 25px; border: 2px solid #222; }
         h1 { text-align: center; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 20px; }
-        .about-msg { background: #1a1a2e; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid var(--neon-blue); font-size: 14px; color: #ddd; }
-        .game-card { background: #1e1e30; padding: 15px; border-radius: 15px; margin-bottom: 15px; border-left: 5px solid var(--neon-blue); display: flex; align-items: center; gap: 15px; }
-        .game-card img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; background: #000; }
-        .game-info { flex-grow: 1; }
-        .btn { padding: 8px 12px; background: var(--neon-blue); color: #000; font-weight: bold; border-radius: 8px; text-decoration: none; font-size: 12px; display: inline-block; margin-top: 5px; }
-        .pc-title { text-align: center; color: var(--neon-blue); font-weight: bold; margin: 20px 0; }
-        input, textarea { width: 100%; padding: 12px; margin: 8px 0; background: #0a0a12; border: 1px solid #333; color: white; border-radius: 8px; }
-        .submit-btn { width: 100%; padding: 12px; background: #555; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        .about-msg { background: #1a1a2e; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid var(--neon-blue); font-size: 14px; color: #ddd; line-height: 1.6; }
+        .game-card { background: #1e1e30; padding: 15px; border-radius: 15px; margin-bottom: 15px; border-left: 5px solid var(--neon-blue); display: flex; align-items: center; justify-content: space-between; }
+        .btn { padding: 8px 15px; background: var(--neon-blue); color: #000; font-weight: bold; border-radius: 8px; text-decoration: none; font-size: 12px; cursor: pointer; border: none; }
+        .pc-title { text-align: center; color: var(--neon-blue); font-weight: bold; margin: 25px 0; font-size: 18px; }
+        /* Modal Stili */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+        .modal-content { background: var(--card-bg); padding: 20px; width: 90%; max-width: 400px; border-radius: 15px; border: 1px solid var(--neon-blue); }
+        input, textarea { width: 100%; padding: 10px; margin: 8px 0; background: #0a0a12; border: 1px solid #333; color: white; border-radius: 8px; box-sizing: border-box; }
     </style>
 </head>
 <body>
     <div class="panel">
         <h1>Ensar Gamer Zone</h1>
         <div class="about-msg">
-            Selam, ben Ensar ve burası benim oyun dünyam. Bu platformu sizler için en kaliteli içerikleri paylaşmak amacıyla kurdum. Oyun tutkumu sizlerle bu panel üzerinden birleştirmek istedim. Yakında çok daha fazla içerik ve özel indirmelerle karşınızda olacağım. Takipte kalarak bu heyecana ortak olmaya devam edin.
+            Oyun tutkumu ve güncel içerikleri bir araya getirdiğim Ensar Gamer Zone'a hoş geldiniz. Burada mobil dünyanın en popüler oyunlarını sizin için güvenle derliyor, en hızlı erişim imkanlarını sunuyorum. İçerik kalitesini ön planda tutarak oyun deneyiminizi bir üst seviyeye taşımayı hedefliyorum. Gelecekte PC dünyasının dev yapımlarıyla listemizi çok daha genişletmeyi planlıyorum. Benimle bu dijital yolculuğa çıkıp en yeni güncellemeleri anında yakalamaya hazır olun.
         </div>
         
-        <!-- Oyun Kartları (Resim linklerini src kısmına koy) -->
-        <div class="game-card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpu5ceNEop3pJdFlmJdjIAuTixK8FAyPm8SaTAREmznw&s" alt="Car Parking">
-            <div class="game-info"><h3>Car Parking</h3><a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" class="btn">İNDİR</a></div>
-        </div>
-        <div class="game-card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScr3EqiBFgrSL50D_5Ra-E1_PpcErpEAZpP2ON6Om1ow&s=10" alt="Minecraft">
-            <div class="game-info"><h3>Minecraft</h3><a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" class="btn">İNDİR</a></div>
-        </div>
-        <div class="game-card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTExgnFIbNNB2Gd7hUF7Vs9832FugMD-GRfVm9jF5S_Gw&s=10" alt="Brawl Stars">
-            <div class="game-info"><h3>Brawl Stars</h3><a href="https://dnull.xyz/latest_bs" class="btn">İNDİR</a></div>
-        </div>
-        <div class="game-card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS27ebKTEcfULkptRvhcQ94h9W-xRa0umrfg0ZotqHbA&s=10" alt="Roblox">
-            <div class="game-info"><h3>Roblox</h3><a href="https://www.apkmirror.com/apk/roblox-corporation/roblox/" class="btn" target="_blank">İNDİR</a></div>
-        </div>
+        <div class="game-card"><h3>Null's Brawl</h3><a href="https://dnull.xyz/latest_bs" class="btn" target="_blank">İNDİR</a></div>
+        <div class="game-card"><h3>Roblox</h3><a href="https://www.apkmirror.com/apk/roblox-corporation/roblox/" class="btn" target="_blank">İNDİR</a></div>
+        <div class="game-card"><h3>Car Parking</h3><a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" class="btn" target="_blank">İNDİR</a></div>
+        <div class="game-card"><h3>Minecraft</h3><a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" class="btn" target="_blank">İNDİR</a></div>
 
-        <div class="pc-title">🚀 YAKINDA PC GAMES</div>
+        <div class="pc-title">🚀 PC GAMES</div>
+        <div class="game-card"><h3>Forza Horizon 6</h3><span class="btn">YAKINDA</span></div>
+        <div class="game-card"><h3>Age of History 3</h3><span class="btn">YAKINDA</span></div>
 
-        <h2 style="color:var(--neon-blue); font-size: 18px;">Yorumlar</h2>
-        <input type="text" id="name" placeholder="Adın">
-        <textarea id="comment" placeholder="Yorumun..."></textarea>
-        <button class="submit-btn" id="send">GÖNDER</button>
-        <div id="comment-list"></div>
+        <button class="btn" style="width: 100%;" onclick="document.getElementById('modal').style.display='flex'">YORUMLARI GÖRÜNTÜLE</button>
+    </div>
+
+    <!-- Modal Yapısı -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 style="color:var(--neon-blue); font-size: 18px;">Yorumlar</h2>
+            <input type="text" id="name" placeholder="Adın">
+            <textarea id="comment" placeholder="Yorumun..."></textarea>
+            <button class="btn" id="send" style="width: 100%;">GÖNDER</button>
+            <button class="btn" style="width: 100%; margin-top:10px; background:#555;" onclick="document.getElementById('modal').style.display='none'">KAPAT</button>
+            <div id="comment-list" style="margin-top:15px; max-height: 200px; overflow-y: auto;"></div>
+        </div>
     </div>
 
     <script type="module">
@@ -58,12 +55,12 @@
         const supabase = createClient("https://bmjbmoejylecdcrgendz.supabase.co", "sb_publishable_EJqiyDVkxJlwvOJf1rk_dw_eKSS2W_g");
         async function load() {
             const { data } = await supabase.from('yorumlar').select('*').order('id', { ascending: false });
-            if(data) document.getElementById('comment-list').innerHTML = data.map(i => `<div style="background:#222; padding:10px; margin-top:5px; border-radius:5px; font-size:13px;"><b>${i.isim}</b>: ${i.yorum}</div>`).join('');
+            if(data) document.getElementById('comment-list').innerHTML = data.map(i => `<div style="background:#222; padding:8px; margin-bottom:5px; border-radius:5px; font-size:12px;"><b>${i.isim}</b>: ${i.yorum}</div>`).join('');
         }
         document.getElementById('send').onclick = async () => {
             const n = document.getElementById('name').value;
             const c = document.getElementById('comment').value;
-            if(!n || !c) return alert("Hepsini doldur!");
+            if(!n || !c) return alert("Lütfen isim ve yorum kısmını doldurun!");
             await supabase.from('yorumlar').insert({ isim: n, yorum: c });
             document.getElementById('name').value = ''; document.getElementById('comment').value = ''; load();
         };
