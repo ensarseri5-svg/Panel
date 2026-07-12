@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangi Oyunu İstersin?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #0f0f12;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            background: #16161a;
+            padding: 40px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid #27272a;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #a855f7;
+        }
+
+        .subtitle {
+            color: #71717a;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .enter-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 20px rgba(168, 85, 247, 0.3);
+        }
+
+        .enter-btn:active {
+            transform: scale(0.97);
+        }
+
+        .apk-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 450px;
+            overflow-y: auto;
+            text-align: left;
+            padding-right: 5px;
+        }
+
+        .apk-list::-webkit-scrollbar { width: 6px; }
+        .apk-list::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
+
+        .apk-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #202024;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid #27272a;
+        }
+
+        .game-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .game-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+        .badge-mod { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .badge-real { background: rgba(37, 211, 102, 0.2); color: #25D366; }
+
+        .download-link {
+            background: #3f3f46;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .download-link:hover {
+            background: #a855f7;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 0; }
+            .container { max-width: 100%; min-height: 100vh; border-radius: 0; border: none; display: flex; flex-direction: column; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- 1. EKRAN: GİRİŞ KAPISI -->
+        <div id="welcomeScreen" class="page-section active">
+            <h2>Hangi Oyunu İstersin?</h2>
+            <p class="subtitle">Arkadaşlara özel hızlı APK indirme paneli</p>
+            
+            <button class="enter-btn" onclick="openPanel()">
+                <i class="fa-solid fa-right-to-bracket"></i> Giriş Yap ve İndir
+            </button>
+        </div>
+
+        <!-- 2. EKRAN: OYUN LİSTESİ -->
+        <div id="panelScreen" class="page-section">
+            <h2>Oyun Paneli</h2>
+            <p class="subtitle">İndirmek istediğiniz oyunun yanındaki butona tıklayın</p>
+            
+            <div class="apk-list">
+                
+                <!-- Brawl Stars -->
+                <div class="apk-card">
+                    <div class="game-info">
+                        <span class="game-name">Brawl Stars</span>
+                        <span class="badge badge-mod">Mod Sürüm</span>
+                    </div>
+                    <a href="https://dnull.xyz/latest_bs" class="download-link">İndir</a>
+                </div>
+
+                <!-- Clash of Clans -->
+                <div class="apk-card">
+                    <div class="game-info">
+                        <span class="game-name">Clash of Clans</span>
+                        <span class="badge badge-mod">Mod Sürüm</span>
+                    </div>
+                    <a href="BURAYA_CLASH_OF_CLANS_LINKINI_YAPISTIR" class="download-link">İndir</a>
+                </div>
+
+                <!-- Subway Surfers -->
+                <div class="apk-card">
+                    <div class="game-info">
+                        <span class="game-name">Subway Surfers</span>
+                        <span class="badge badge-mod">Mod Sürüm</span>
+                    </div>
+                    <a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" class="download-link">İndir</a>
+                </div>
+
+                <!-- Minecraft PE -->
+                <div class="apk-card">
+                    <div class="game-info">
+                        <span class="game-name">Minecraft PE</span>
+                        <span class="badge badge-real">Orijinal Sürüm</span>
+                    </div>
+                    <a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" class="download-link">İndir</a>
+                </div>
+
+                <!-- PUBG Mobile -->
+                <div class="apk-card">
+                    <div class="game-info">
+                        <span class="game-name">PUBG Mobile</span>
+                        <span class="badge badge-real">Orijinal Sürüm</span>
+                    </div>
+                    <a href="BURAYA_PUBG_LINKINI_YAPISTIR" class="download-link">İndir</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openPanel() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('panelScreen').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
