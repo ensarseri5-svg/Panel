@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oyun İndirme Paneli</title>
+    <!-- Supabase Veri Tabanı Kütüphanesi -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -44,7 +46,7 @@
         p {
             font-size: 14px;
             color: #8a8f98;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .game-card {
@@ -82,11 +84,88 @@
             border-radius: 10px;
             transition: opacity 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 15px rgba(0, 255, 240, 0.2);
+            text-align: center;
         }
 
         .download-btn:hover {
             opacity: 0.9;
             box-shadow: 0 6px 20px rgba(0, 255, 240, 0.4);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 25px 0;
+        }
+
+        .comment-section {
+            text-align: left;
+        }
+
+        .comment-section h2 {
+            font-size: 18px;
+            color: #00fff0;
+            margin-bottom: 15px;
+        }
+
+        .comment-input, .name-input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 10px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .comment-input {
+            resize: none;
+            height: 60px;
+        }
+
+        .comment-input:focus, .name-input:focus {
+            border-color: #00fff0;
+        }
+
+        .submit-comment-btn {
+            width: 100%;
+            padding: 10px;
+            background: #222;
+            border: 1px solid #00fff0;
+            color: #00fff0;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .submit-comment-btn:hover {
+            background: #00fff0;
+            color: #000;
+        }
+
+        .comments-list {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .comment-item {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 3px solid #00fff0;
+            font-size: 13px;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #0088ff;
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -113,7 +192,96 @@
             <div class="game-title">Null's Brawl Stars</div>
             <a href="https://dnull.xyz/latest_bs" target="_blank" class="download-btn">İndir (APK)</a>
         </div>
+
+        <hr>
+
+        <!-- YORUM BÖLÜMÜ -->
+        <div class="comment-section">
+            <h2>Yorumlar (Herkes Görebilir)</h2>
+            <input type="text" id="nameInput" class="name-input" placeholder="Adınız...">
+            <textarea id="commentInput" class="comment-input" placeholder="Yorumunuzu buraya yazın..."></textarea>
+            <button onclick="addComment()" class="submit-comment-btn">Yorum Gönder</button>
+
+            <div class="comments-list" id="commentsList">
+                <div class="comment-item">
+                    <div class="comment-author">Sistem</div>
+                    <div>Yorumlar yükleniyor...</div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Supabase bağlantı adresi entegre edildi
+        const SUPABASE_URL = "https://bmjbmoejylecdcrgendz.supabase.co";
+        
+        // BURAYA Supabase panelindeki Settings > API kısmından kopyaladığın uzun anon public kodunu yapıştır:
+        const SUPABASE_ANON_KEY = "bmjbmoejylecdcrgendz";
+        
+        const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+        async function loadComments() {
+            if(!supabase) return;
+            const { data, error } = await supabase
+                .from('comments')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.log('Yorumlar yüklenemedi:', error);
+                return;
+            }
+
+            const list = document.getElementById('commentsList');
+            list.innerHTML = '';
+
+            if(!data || data.length === 0) {
+                list.innerHTML = '<div class="comment-item">Henüz yorum yapılmamış. İlk yorumu sen yaz!</div>';
+                return;
+            }
+
+            data.forEach(item => {
+                const newComment = document.createElement('div');
+                newComment.className = 'comment-item';
+                newComment.innerHTML = `<div class="comment-author">${escapeHTML(item.name)}</div><div>${escapeHTML(item.comment)}</div>`;
+                list.appendChild(newComment);
+            });
+        }
+
+        async function addComment() {
+            const name = document.getElementById('nameInput').value.trim();
+            const comment = document.getElementById('commentInput').value.trim();
+
+            if(name === "" || comment === "") {
+                alert("Lütfen adınızı ve yorumunuzu yazın!");
+                return;
+            }
+
+            if(!supabase) {
+                alert("Veri tabanı bağlantısı kurulamadı!");
+                return;
+            }
+
+            const { error } = await supabase
+                .from('comments')
+                .insert([{ name: name, comment: comment }]);
+
+            if (error) {
+                alert("Yorum gönderilemedi! Lütfen Supabase'de 'comments' tablosu oluşturduğunuzdan emin olun.");
+                console.error(error);
+            } else {
+                document.getElementById('nameInput').value = "";
+                document.getElementById('commentInput').value = "";
+                loadComments();
+            }
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+        }
+
+        if(supabase) loadComments();
+    </script>
 
 </body>
 </html>
