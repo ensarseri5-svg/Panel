@@ -9,12 +9,9 @@
         body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; }
         .panel { width: 100%; max-width: 450px; background: var(--card-bg); padding: 30px; border-radius: 25px; border: 2px solid #222; }
         h1 { text-align: center; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 20px; }
-        .about-msg { background: #1a1a2e; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid var(--neon-blue); font-size: 14px; color: #ddd; line-height: 1.6; }
         .game-card { background: #1e1e30; padding: 15px; border-radius: 15px; margin-bottom: 15px; border-left: 5px solid var(--neon-blue); display: flex; align-items: center; justify-content: space-between; }
-        .btn { padding: 8px 15px; background: var(--neon-blue); color: #000; font-weight: bold; border-radius: 8px; text-decoration: none; font-size: 12px; cursor: pointer; border: none; }
-        .pc-title { text-align: center; color: var(--neon-blue); font-weight: bold; margin: 25px 0; font-size: 18px; }
-        /* Modal Stili */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+        .btn { padding: 12px; background: var(--neon-blue); color: #000; font-weight: bold; border-radius: 8px; text-decoration: none; display: block; width: 100%; text-align: center; cursor: pointer; border: none; margin-bottom: 10px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 100; }
         .modal-content { background: var(--card-bg); padding: 20px; width: 90%; max-width: 400px; border-radius: 15px; border: 1px solid var(--neon-blue); }
         input, textarea { width: 100%; padding: 10px; margin: 8px 0; background: #0a0a12; border: 1px solid #333; color: white; border-radius: 8px; box-sizing: border-box; }
     </style>
@@ -22,48 +19,63 @@
 <body>
     <div class="panel">
         <h1>Ensar Gamer Zone</h1>
-        <div class="about-msg">
-            Oyun tutkumu ve güncel içerikleri bir araya getirdiğim Ensar Gamer Zone'a hoş geldiniz. Burada mobil dünyanın en popüler oyunlarını sizin için güvenle derliyor, en hızlı erişim imkanlarını sunuyorum. İçerik kalitesini ön planda tutarak oyun deneyiminizi bir üst seviyeye taşımayı hedefliyorum. Gelecekte PC dünyasının dev yapımlarıyla listemizi çok daha genişletmeyi planlıyorum. Benimle bu dijital yolculuğa çıkıp en yeni güncellemeleri anında yakalamaya hazır olun.
+        <button class="btn" onclick="showSection('mobile')">MOBİL OYUNLAR</button>
+        <button class="btn" onclick="checkPC()">PC OYUNLARI (ŞİFRELİ)</button>
+        <button class="btn" style="background:#444; color:#fff;" onclick="document.getElementById('modal').style.display='flex'">YORUMLAR</button>
+
+        <div id="mobile-section" style="margin-top:20px;">
+            <div class="game-card"><h3>Null's Brawl</h3><a href="https://dnull.xyz/latest_bs" class="btn" style="width:auto; margin:0;">İNDİR</a></div>
+            <div class="game-card"><h3>Roblox</h3><a href="https://www.apkmirror.com/apk/roblox-corporation/roblox/" class="btn" style="width:auto; margin:0;">İNDİR</a></div>
+            <div class="game-card"><h3>Car Parking</h3><a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" class="btn" style="width:auto; margin:0;">İNDİR</a></div>
+            <div class="game-card"><h3>Minecraft</h3><a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" class="btn" style="width:auto; margin:0;">İNDİR</a></div>
         </div>
-        
-        <div class="game-card"><h3>Null's Brawl</h3><a href="https://dnull.xyz/latest_bs" class="btn" target="_blank">İNDİR</a></div>
-        <div class="game-card"><h3>Roblox</h3><a href="https://www.apkmirror.com/apk/roblox-corporation/roblox/" class="btn" target="_blank">İNDİR</a></div>
-        <div class="game-card"><h3>Car Parking</h3><a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" class="btn" target="_blank">İNDİR</a></div>
-        <div class="game-card"><h3>Minecraft</h3><a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" class="btn" target="_blank">İNDİR</a></div>
 
-        <div class="pc-title">🚀 PC GAMES</div>
-        <div class="game-card"><h3>Forza Horizon 6</h3><span class="btn">YAKINDA</span></div>
-        <div class="game-card"><h3>Age of History 3</h3><span class="btn">YAKINDA</span></div>
-
-        <button class="btn" style="width: 100%;" onclick="document.getElementById('modal').style.display='flex'">YORUMLARI GÖRÜNTÜLE</button>
+        <div id="pc-section" style="margin-top:20px; display:none;">
+            <div class="game-card"><h3>Forza Horizon 6</h3><a href="https://gofile.io/d/WfNPB3" class="btn" style="width:auto; margin:0;">İNDİR</a></div>
+            <div class="game-card"><h3>Age of History 3</h3><span class="btn" style="width:auto; margin:0; background:#555;">YAKINDA</span></div>
+        </div>
     </div>
 
-    <!-- Modal Yapısı -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <h2 style="color:var(--neon-blue); font-size: 18px;">Yorumlar</h2>
+            <h2 style="color:var(--neon-blue);">Yorumlar</h2>
             <input type="text" id="name" placeholder="Adın">
             <textarea id="comment" placeholder="Yorumun..."></textarea>
             <button class="btn" id="send" style="width: 100%;">GÖNDER</button>
+            <div id="comment-list" style="max-height: 200px; overflow-y: auto; margin-top:10px;"></div>
             <button class="btn" style="width: 100%; margin-top:10px; background:#555;" onclick="document.getElementById('modal').style.display='none'">KAPAT</button>
-            <div id="comment-list" style="margin-top:15px; max-height: 200px; overflow-y: auto;"></div>
         </div>
     </div>
 
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
         const supabase = createClient("https://bmjbmoejylecdcrgendz.supabase.co", "sb_publishable_EJqiyDVkxJlwvOJf1rk_dw_eKSS2W_g");
+        
+        window.checkPC = () => {
+            const pass = prompt("PC Oyun Şifresini Gir:");
+            if(pass === "1234") {
+                document.getElementById('mobile-section').style.display = 'none';
+                document.getElementById('pc-section').style.display = 'block';
+            } else { alert("Hatalı Şifre!"); }
+        };
+        
+        window.showSection = (s) => {
+            document.getElementById('mobile-section').style.display = 'block';
+            document.getElementById('pc-section').style.display = 'none';
+        };
+
+        document.getElementById('send').onclick = async () => {
+            const n = document.getElementById('name').value;
+            const c = document.getElementById('comment').value;
+            if(!n || !c) return alert("Hepsini doldur!");
+            await supabase.from('yorumlar').insert({ isim: n, yorum: c });
+            document.getElementById('name').value = ''; document.getElementById('comment').value = ''; load();
+        };
+
         async function load() {
             const { data } = await supabase.from('yorumlar').select('*').order('id', { ascending: false });
             if(data) document.getElementById('comment-list').innerHTML = data.map(i => `<div style="background:#222; padding:8px; margin-bottom:5px; border-radius:5px; font-size:12px;"><b>${i.isim}</b>: ${i.yorum}</div>`).join('');
         }
-        document.getElementById('send').onclick = async () => {
-            const n = document.getElementById('name').value;
-            const c = document.getElementById('comment').value;
-            if(!n || !c) return alert("Lütfen isim ve yorum kısmını doldurun!");
-            await supabase.from('yorumlar').insert({ isim: n, yorum: c });
-            document.getElementById('name').value = ''; document.getElementById('comment').value = ''; load();
-        };
         load();
     </script>
 </body>
