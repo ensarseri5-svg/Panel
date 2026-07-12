@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oyun İndirme Paneli</title>
-    
-    <!-- Supabase Kütüphanesi (En Garanti Yöntem) -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    
     <style>
         * {
             margin: 0;
@@ -177,32 +173,28 @@
         <h1>Oyun İndirme Paneli</h1>
         <p>İndirmek istediğiniz oyunun butonuna tıklayın</p>
 
-        <!-- CAR PARKING -->
         <div class="game-card">
             <div class="game-title">Car Parking Multiplayer</div>
-            <a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" target="_blank" class="download-btn">İndir (APK)</a>
+            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
         </div>
 
-        <!-- MINECRAFT -->
         <div class="game-card">
             <div class="game-title">Minecraft</div>
-            <a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" target="_blank" class="download-btn">İndir (APK)</a>
+            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
         </div>
 
-        <!-- NULL'S BRAWL STARS -->
         <div class="game-card">
             <div class="game-title">Null's Brawl Stars</div>
-            <a href="https://dnull.xyz/latest_bs" target="_blank" class="download-btn">İndir (APK)</a>
+            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
         </div>
 
         <hr>
 
-        <!-- YORUM BÖLÜMÜ -->
         <div class="comment-section">
             <h2>Yorumlar (Herkes Görebilir)</h2>
             <input type="text" id="nameInput" class="name-input" placeholder="Adınız...">
             <textarea id="commentInput" class="comment-input" placeholder="Yorumunuzu buraya yazın..."></textarea>
-            <button onclick="addComment()" class="submit-comment-btn">Yorum Gönder</button>
+            <button id="submitBtn" class="submit-comment-btn">Yorum Gönder</button>
 
             <div class="comments-list" id="commentsList">
                 <div class="comment-item">
@@ -213,20 +205,21 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
         const SUPABASE_URL = "https://bmjbmoejylecdcrgendz.supabase.co";
-        // AŞAĞIYA Supabase panelinden kopyaladığın uzun anon public anahtarını yapıştır:
+        // BURAYA: tırnak işaretlerini silmeden sadece içini temizleyip anon keyini yapıştır:
         const SUPABASE_ANON_KEY = "bmjbmoejylecdcrgendz";
-        
-        // Supabase nesnesini güvenli şekilde başlatma
-        const supabase = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+        }
 
         async function loadComments() {
             const list = document.getElementById('commentsList');
-            if(!supabase) {
-                list.innerHTML = '<div class="comment-item" style="border-left-color: red;">Bağlantı Hatası: Supabase kütüphanesi yüklenemedi.</div>';
-                return;
-            }
             
             const { data, error } = await supabase
                 .from('comments')
@@ -262,11 +255,6 @@
                 return;
             }
 
-            if(!supabase) {
-                alert("Veri tabanı bağlantısı kurulamadı!");
-                return;
-            }
-
             const { error } = await supabase
                 .from('comments')
                 .insert([{ name: name, comment: comment }]);
@@ -280,16 +268,11 @@
             }
         }
 
-        function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
-        }
+        // Buton tıklamasını bağlama
+        document.getElementById('submitBtn').addEventListener('click', addComment);
 
-        // Sayfa açıldığında fonksiyonu tetikle
-        if(supabase) {
-            loadComments();
-        } else {
-            document.getElementById('commentsList').innerHTML = '<div class="comment-item" style="border-left-color: red;">Bağlantı Kurulamadı!</div>';
-        }
+        // Sayfa yüklenince otomatik çalıştır
+        loadComments();
     </script>
 
 </body>
