@@ -3,162 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oyun İndirme Paneli</title>
+    <title>Gamer Zone | İndirme Paneli</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: radial-gradient(circle, #1a1a2e, #0f0f1b); color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .panel-container { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 20px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
-        h1 { font-size: 24px; margin-bottom: 10px; color: #00fff0; text-shadow: 0 0 10px rgba(0, 255, 240, 0.3); }
-        p { font-size: 14px; color: #8a8f98; margin-bottom: 25px; }
-        .game-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 15px; padding: 15px; margin-bottom: 15px; display: flex; flex-direction: column; align-items: center; transition: transform 0.3s ease; }
-        .game-card:hover { transform: translateY(-3px); border-color: #00fff0; }
-        .game-title { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
-        .download-btn { display: inline-block; width: 100%; padding: 12px; background: linear-gradient(45deg, #00fff0, #0088ff); color: #000; font-weight: bold; text-decoration: none; border-radius: 10px; text-align: center; }
-        hr { border: 0; height: 1px; background: rgba(255, 255, 255, 0.1); margin: 25px 0; }
-        .comment-section { text-align: left; }
-        .comment-section h2 { font-size: 18px; color: #00fff0; margin-bottom: 15px; }
-        .comment-input, .name-input { width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; margin-bottom: 10px; outline: none; }
-        .comment-input { resize: none; height: 60px; }
-        .submit-comment-btn { width: 100%; padding: 10px; background: #222; border: 1px solid #00fff0; color: #00fff0; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s; }
-        .submit-comment-btn:hover { background: #00fff0; color: #000; }
-        .comments-list { margin-top: 20px; max-height: 200px; overflow-y: auto; }
-        .comment-item { background: rgba(255, 255, 255, 0.02); padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 3px solid #00fff0; font-size: 13px; }
-        .comment-author { font-weight: bold; color: #0088ff; margin-bottom: 4px; }
+        :root {
+            --neon-blue: #00fff0;
+            --dark-bg: #0a0a12;
+            --card-bg: #161625;
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #fff; 
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            padding: 20px; 
+            margin: 0;
+        }
+
+        .panel { 
+            width: 100%; 
+            max-width: 450px; 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 25px; 
+            border: 2px solid #222;
+            box-shadow: 0 0 20px rgba(0, 255, 240, 0.1);
+        }
+
+        h1 { text-align: center; color: var(--neon-blue); text-transform: uppercase; letter-spacing: 2px; }
+
+        .game-card { 
+            background: #1e1e30; 
+            padding: 20px; 
+            border-radius: 15px; 
+            margin-bottom: 20px; 
+            border-left: 5px solid var(--neon-blue);
+            transition: 0.3s;
+        }
+
+        .game-card:hover { transform: scale(1.02); }
+
+        .btn { 
+            display: block; width: 100%; padding: 12px; 
+            background: var(--neon-blue); color: #000; font-weight: bold; 
+            text-align: center; border-radius: 8px; text-decoration: none; 
+            margin-top: 10px; cursor: pointer;
+        }
+
+        input, textarea { 
+            width: 100%; padding: 12px; margin: 8px 0; 
+            background: #0a0a12; border: 1px solid #333; 
+            color: white; border-radius: 8px; outline: none;
+        }
+
+        input:focus, textarea:focus { border-color: var(--neon-blue); }
+
+        .submit-btn { 
+            width: 100%; padding: 12px; background: #555; 
+            color: white; border: none; border-radius: 8px; 
+            cursor: pointer; font-weight: bold;
+        }
+
+        .submit-btn:hover { background: var(--neon-blue); color: #000; }
+
+        .comment-item { 
+            background: #1a1a2e; padding: 12px; margin-top: 10px; 
+            border-radius: 10px; font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="panel-container">
-        <h1>Oyun İndirme Paneli</h1>
-        <p>İndirmek istediğiniz oyunun butonuna tıklayın</p>
-
+    <div class="panel">
+        <h1>Gamer Zone</h1>
+        
         <div class="game-card">
-            <div class="game-title">Car Parking Multiplayer</div>
-            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
+            <h3>Car Parking Multiplayer</h3>
+            <a href="#" class="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk">İNDİR (APK)</a>
+        </div>
+        <div class="game-card">
+            <h3>Minecraft</h3>
+            <a href="#" class="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc">İNDİR (APK)</a>
+        </div>
+        <div class="game-card">
+            <h3>Null's Brawl Stars</h3>
+            <a href="#" class="https://dnull.xyz/latest_bs">İNDİR (APK)</a>
         </div>
 
-        <div class="game-card">
-            <div class="game-title">Minecraft</div>
-            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
-        </div>
-
-        <div class="game-card">
-            <div class="game-title">Null's Brawl Stars</div>
-            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
-        </div>
-
-        <hr>
-
-        <div class="comment-section">
-            <h2>Yorumlar (Herkes Görebilir)</h2>
-            <input type="text" id="nameInput" class="name-input" placeholder="Adınız...">
-            <textarea id="commentInput" class="comment-input" placeholder="Yorumunuzu buraya yazın..."></textarea>
-            <button id="submitBtn" class="submit-comment-btn">Yorum Gönder</button>
-
-            <div class="comments-list" id="commentsList">
-                <div class="comment-item">
-                    <div class="comment-author">Sistem</div>
-                    <div>Yorumlar yükleniyor...</div>
-                </div>
-            </div>
+        <div style="margin-top: 40px;">
+            <h2 style="color:var(--neon-blue)">Yorumlar</h2>
+            <input type="text" id="name" placeholder="Oyuncu Adın...">
+            <textarea id="comment" placeholder="Yorumunu yaz..."></textarea>
+            <button class="submit-btn" id="send">GÖNDER</button>
+            <div id="comment-list"></div>
         </div>
     </div>
 
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+        const supabase = createClient("https://bmjbmoejylecdcrgendz.supabase.co", "sb_publishable_EJqiyDVkxJlwvOJf1rk_dw_eKSS2W_g");
 
-        const SUPABASE_URL = "https://bmjbmoejylecdcrgendz.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_EJqiyDVkxJlwvOJf1rk_dw_eKSS2W_g";
-
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        function escapeHTML(str) {
-            return str ? str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)) : '';
-        }
-
-        async function loadComments() {
-            const list = document.getElementById('commentsList');
-            const { data, error } = await supabase.from('oyun_yorumları').select('*');
-
-            if (error) {
-                list.innerHTML = `<div class="comment-item" style="border-left-color: red;">Hata: ${error.message}</div>`;
-                return;
-            }
-
-            list.innerHTML = '';
-            if(!data || data.length === 0) {
-                list.innerHTML = '<div class="comment-item">Henüz yorum yapılmamış. İlk yorumu sen yaz!</div>';
-                return;
-            }
-
-            data.sort((a, b) => (b.id || 0) - (a.id || 0));
-
-            data.forEach(item => {
-                const newComment = document.createElement('div');
-                newComment.className = 'comment-item';
-                
-                // Gelen nesnedeki tüm key'leri otomatik yakala
-                const keys = Object.keys(item);
-                const nameKey = keys.find(k => k.toLowerCase() === 'isim') || 'isim';
-                const commentKey = keys.find(k => k.toLowerCase() === 'yorum') || 'Yorum';
-
-                const authorVal = item[nameKey] || 'Anonim';
-                const commentVal = item[commentKey] || '';
-                
-                newComment.innerHTML = `<div class="comment-author">${escapeHTML(String(authorVal))}</div><div>${escapeHTML(String(commentVal))}</div>`;
-                list.appendChild(newComment);
-            });
-        }
-
-        async function addComment() {
-            const name = document.getElementById('nameInput').value.trim();
-            const comment = document.getElementById('commentInput').value.trim();
-
-            if(name === "" || comment === "") {
-                alert("Lütfen adınızı ve yorumunuzu yazın!");
-                return;
-            }
-
-            // AKILLI SÜTUN TESPİTİ: Önce tablodan boş bir veri çekip şemadaki gerçek sütun adlarını öğreniyoruz
-            const { data: schemaCheck } = await supabase.from('oyun_yorumları').select('*').limit(1);
-            
-            let finalNameKey = "isim";
-            let finalCommentKey = "yorum"; // Varsayılan olarak tamamen küçük harf
-
-            if (schemaCheck && schemaCheck.length >= 0) {
-                // Mevcut sütunların gerçek harf dizilimini tarayıcıdan yakala
-                const sample = schemaCheck[0] || {};
-                const actualKeys = Object.keys(sample);
-                
-                if (actualKeys.length > 0) {
-                    const foundName = actualKeys.find(k => k.toLowerCase() === 'isim');
-                    const foundComment = actualKeys.find(k => k.toLowerCase() === 'yorum');
-                    
-                    if (foundName) finalNameKey = foundName;
-                    if (foundComment) finalCommentKey = foundComment;
-                }
-            }
-
-            // Gerçek şemaya göre dinamik objeyi oluştur
-            const payload = {};
-            payload[finalNameKey] = name;
-            payload[finalCommentKey] = comment;
-
-            const { error } = await supabase
-                .from('oyun_yorumları')
-                .insert([payload]);
-
-            if (error) {
-                alert("Yorum gönderilemedi: " + error.message);
-            } else {
-                document.getElementById('nameInput').value = "";
-                document.getElementById('commentInput').value = "";
-                loadComments();
+        async function load() {
+            const { data } = await supabase.from('yorumlar').select('*').order('id', { ascending: false });
+            if(data) {
+                document.getElementById('comment-list').innerHTML = data.map(i => 
+                    `<div class="comment-item"><b>${i.isim}</b>: ${i.yorum}</div>`).join('');
             }
         }
 
-        document.getElementById('submitBtn').addEventListener('click', addComment);
-        loadComments();
+        document.getElementById('send').onclick = async () => {
+            const n = document.getElementById('name').value;
+            const c = document.getElementById('comment').value;
+            if(!n || !c) return alert("Hepsini doldur!");
+            await supabase.from('yorumlar').insert({ isim: n, yorum: c });
+            document.getElementById('name').value = '';
+            document.getElementById('comment').value = '';
+            load();
+        };
+        load();
     </script>
 </body>
 </html>
