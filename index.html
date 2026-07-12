@@ -5,166 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oyun İndirme Paneli</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: radial-gradient(circle, #1a1a2e, #0f0f1b);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .panel-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-        }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #00fff0;
-            text-shadow: 0 0 10px rgba(0, 255, 240, 0.3);
-        }
-
-        p {
-            font-size: 14px;
-            color: #8a8f98;
-            margin-bottom: 25px;
-        }
-
-        .game-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .game-card:hover {
-            transform: translateY(-3px);
-            border-color: #00fff0;
-        }
-
-        .game-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #ffffff;
-        }
-
-        .download-btn {
-            display: inline-block;
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(45deg, #00fff0, #0088ff);
-            color: #000;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: opacity 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(0, 255, 240, 0.2);
-            text-align: center;
-        }
-
-        .download-btn:hover {
-            opacity: 0.9;
-            box-shadow: 0 6px 20px rgba(0, 255, 240, 0.4);
-        }
-
-        hr {
-            border: 0;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 25px 0;
-        }
-
-        .comment-section {
-            text-align: left;
-        }
-
-        .comment-section h2 {
-            font-size: 18px;
-            color: #00fff0;
-            margin-bottom: 15px;
-        }
-
-        .comment-input, .name-input {
-            width: 100%;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #fff;
-            margin-bottom: 10px;
-            outline: none;
-            font-size: 14px;
-        }
-
-        .comment-input {
-            resize: none;
-            height: 60px;
-        }
-
-        .comment-input:focus, .name-input:focus {
-            border-color: #00fff0;
-        }
-
-        .submit-comment-btn {
-            width: 100%;
-            padding: 10px;
-            background: #222;
-            border: 1px solid #00fff0;
-            color: #00fff0;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .submit-comment-btn:hover {
-            background: #00fff0;
-            color: #000;
-        }
-
-        .comments-list {
-            margin-top: 20px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .comment-item {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            border-left: 3px solid #00fff0;
-            font-size: 13px;
-        }
-
-        .comment-author {
-            font-weight: bold;
-            color: #0088ff;
-            margin-bottom: 4px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: radial-gradient(circle, #1a1a2e, #0f0f1b); color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .panel-container { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 20px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
+        h1 { font-size: 24px; margin-bottom: 10px; color: #00fff0; text-shadow: 0 0 10px rgba(0, 255, 240, 0.3); }
+        p { font-size: 14px; color: #8a8f98; margin-bottom: 25px; }
+        .game-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 15px; padding: 15px; margin-bottom: 15px; display: flex; flex-direction: column; align-items: center; transition: transform 0.3s ease; }
+        .game-card:hover { transform: translateY(-3px); border-color: #00fff0; }
+        .game-title { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+        .download-btn { display: inline-block; width: 100%; padding: 12px; background: linear-gradient(45deg, #00fff0, #0088ff); color: #000; font-weight: bold; text-decoration: none; border-radius: 10px; text-align: center; }
+        hr { border: 0; height: 1px; background: rgba(255, 255, 255, 0.1); margin: 25px 0; }
+        .comment-section { text-align: left; }
+        .comment-section h2 { font-size: 18px; color: #00fff0; margin-bottom: 15px; }
+        .comment-input, .name-input { width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; margin-bottom: 10px; outline: none; }
+        .comment-input { resize: none; height: 60px; }
+        .submit-comment-btn { width: 100%; padding: 10px; background: #222; border: 1px solid #00fff0; color: #00fff0; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .submit-comment-btn:hover { background: #00fff0; color: #000; }
+        .comments-list { margin-top: 20px; max-height: 200px; overflow-y: auto; }
+        .comment-item { background: rgba(255, 255, 255, 0.02); padding: 10px; border-radius: 8px; margin-bottom: 8px; border-left: 3px solid #00fff0; font-size: 13px; }
+        .comment-author { font-weight: bold; color: #0088ff; margin-bottom: 4px; }
     </style>
 </head>
 <body>
@@ -219,10 +78,7 @@
 
         async function loadComments() {
             const list = document.getElementById('commentsList');
-            
-            const { data, error } = await supabase
-                .from('oyun_yorumları')
-                .select('*');
+            const { data, error } = await supabase.from('oyun_yorumları').select('*');
 
             if (error) {
                 list.innerHTML = `<div class="comment-item" style="border-left-color: red;">Hata: ${error.message}</div>`;
@@ -230,7 +86,6 @@
             }
 
             list.innerHTML = '';
-
             if(!data || data.length === 0) {
                 list.innerHTML = '<div class="comment-item">Henüz yorum yapılmamış. İlk yorumu sen yaz!</div>';
                 return;
@@ -242,9 +97,13 @@
                 const newComment = document.createElement('div');
                 newComment.className = 'comment-item';
                 
-                // Panele tam olarak 'isim' ve 'Yorum' şeklinde gelen verileri basıyoruz
-                const authorVal = item.isim || 'Anonim';
-                const commentVal = item.Yorum || '';
+                // Gelen nesnedeki tüm key'leri otomatik yakala
+                const keys = Object.keys(item);
+                const nameKey = keys.find(k => k.toLowerCase() === 'isim') || 'isim';
+                const commentKey = keys.find(k => k.toLowerCase() === 'yorum') || 'Yorum';
+
+                const authorVal = item[nameKey] || 'Anonim';
+                const commentVal = item[commentKey] || '';
                 
                 newComment.innerHTML = `<div class="comment-author">${escapeHTML(String(authorVal))}</div><div>${escapeHTML(String(commentVal))}</div>`;
                 list.appendChild(newComment);
@@ -260,11 +119,30 @@
                 return;
             }
 
-            // Panele tam uyum sağlaması için tam olarak 'isim' ve 'Yorum' key'lerini gönderiyoruz
-            const payload = {
-                isim: name,
-                Yorum: comment
-            };
+            // AKILLI SÜTUN TESPİTİ: Önce tablodan boş bir veri çekip şemadaki gerçek sütun adlarını öğreniyoruz
+            const { data: schemaCheck } = await supabase.from('oyun_yorumları').select('*').limit(1);
+            
+            let finalNameKey = "isim";
+            let finalCommentKey = "yorum"; // Varsayılan olarak tamamen küçük harf
+
+            if (schemaCheck && schemaCheck.length >= 0) {
+                // Mevcut sütunların gerçek harf dizilimini tarayıcıdan yakala
+                const sample = schemaCheck[0] || {};
+                const actualKeys = Object.keys(sample);
+                
+                if (actualKeys.length > 0) {
+                    const foundName = actualKeys.find(k => k.toLowerCase() === 'isim');
+                    const foundComment = actualKeys.find(k => k.toLowerCase() === 'yorum');
+                    
+                    if (foundName) finalNameKey = foundName;
+                    if (foundComment) finalCommentKey = foundComment;
+                }
+            }
+
+            // Gerçek şemaya göre dinamik objeyi oluştur
+            const payload = {};
+            payload[finalNameKey] = name;
+            payload[finalCommentKey] = comment;
 
             const { error } = await supabase
                 .from('oyun_yorumları')
@@ -282,6 +160,5 @@
         document.getElementById('submitBtn').addEventListener('click', addComment);
         loadComments();
     </script>
-
 </body>
 </html>
