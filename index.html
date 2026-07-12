@@ -220,9 +220,9 @@
         async function loadComments() {
             const list = document.getElementById('commentsList');
             
-            // Senin paneline göre 'yorumlar' tablosundan verileri çekiyoruz
+            // Yeni tablo ismini buraya bağladık
             const { data, error } = await supabase
-                .from('yorumlar')
+                .from('oyun_yorumları')
                 .select('*');
 
             if (error) {
@@ -240,8 +240,7 @@
             data.reverse().forEach(item => {
                 const newComment = document.createElement('div');
                 newComment.className = 'comment-item';
-                // Sütun isimlerini senin paneline göre 'İsim' ve 'Yorum' yaptık
-                newComment.innerHTML = `<div class="comment-author">${escapeHTML(item.İsim || 'Anonim')}</div><div>${escapeHTML(item.Yorum || '')}</div>`;
+                newComment.innerHTML = `<div class="comment-author">${escapeHTML(item.name || 'Anonim')}</div><div>${escapeHTML(item.comment || '')}</div>`;
                 list.appendChild(newComment);
             });
         }
@@ -255,10 +254,9 @@
                 return;
             }
 
-            // Verileri senin paneline göre 'İsim' ve 'Yorum' olarak kaydediyoruz
             const { error } = await supabase
-                .from('yorumlar')
-                .insert([{ İsim: name, Yorum: comment }]);
+                .from('oyun_yorumları')
+                .insert([{ name: name, comment: comment }]);
 
             if (error) {
                 alert("Yorum gönderilemedi: " + error.message);
