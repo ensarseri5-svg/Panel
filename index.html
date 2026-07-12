@@ -19,8 +19,9 @@
 <body>
     <div class="panel">
         <h1>Ensar Gamer Zone</h1>
+        
         <button class="btn" onclick="showSection('mobile')">MOBİL OYUNLAR</button>
-        <button class="btn" onclick="checkPC()">PC OYUNLARI (ŞİFRELİ)</button>
+        <button class="btn" onclick="showSection('pc')">PC OYUNLARI</button>
         <button class="btn" style="background:#444; color:#fff;" onclick="document.getElementById('modal').style.display='flex'">YORUMLAR</button>
 
         <div id="mobile-section" style="margin-top:20px;">
@@ -31,7 +32,10 @@
         </div>
 
         <div id="pc-section" style="margin-top:20px; display:none;">
-            <div class="game-card"><h3>Forza Horizon 6</h3><a href="https://gofile.io/d/WfNPB3" class="btn" style="width:auto; margin:0;">İNDİR</a></div>
+            <div class="game-card">
+                <h3>Forza Horizon 6</h3>
+                <a href="https://gofile.io/d/WfNPB3" class="btn" style="width:auto; margin:0;">İNDİR</a>
+            </div>
             <div class="game-card"><h3>Age of History 3</h3><span class="btn" style="width:auto; margin:0; background:#555;">YAKINDA</span></div>
         </div>
     </div>
@@ -51,17 +55,9 @@
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
         const supabase = createClient("https://bmjbmoejylecdcrgendz.supabase.co", "sb_publishable_EJqiyDVkxJlwvOJf1rk_dw_eKSS2W_g");
         
-        window.checkPC = () => {
-            const pass = prompt("PC Oyun Şifresini Gir:");
-            if(pass === "57392648") {
-                document.getElementById('mobile-section').style.display = 'none';
-                document.getElementById('pc-section').style.display = 'block';
-            } else { alert("Hatalı Şifre!"); }
-        };
-        
         window.showSection = (s) => {
-            document.getElementById('mobile-section').style.display = 'block';
-            document.getElementById('pc-section').style.display = 'none';
+            document.getElementById('mobile-section').style.display = (s === 'mobile') ? 'block' : 'none';
+            document.getElementById('pc-section').style.display = (s === 'pc') ? 'block' : 'none';
         };
 
         document.getElementById('send').onclick = async () => {
