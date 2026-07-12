@@ -214,7 +214,7 @@
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+            return str ? str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)) : '';
         }
 
         async function loadComments() {
@@ -236,14 +236,17 @@
                 return;
             }
 
-            // Yeni yorumların en üstte görünmesi için id sırasına göre sıralıyoruz
             data.sort((a, b) => (b.id || 0) - (a.id || 0));
 
             data.forEach(item => {
                 const newComment = document.createElement('div');
                 newComment.className = 'comment-item';
-                // Paneldeki Türkçe sütun adlarını doğrudan okuyoruz: İsim ve Yorum
-                newComment.innerHTML = `<div class="comment-author">${escapeHTML(item.İsim || item.name || 'Anonim')}</div><div>${escapeHTML(item.Yorum || item.comment || '')}</div>`;
+                
+                // Panele tam olarak 'isim' ve 'Yorum' şeklinde gelen verileri basıyoruz
+                const authorVal = item.isim || 'Anonim';
+                const commentVal = item.Yorum || '';
+                
+                newComment.innerHTML = `<div class="comment-author">${escapeHTML(String(authorVal))}</div><div>${escapeHTML(String(commentVal))}</div>`;
                 list.appendChild(newComment);
             });
         }
@@ -257,36 +260,23 @@
                 return;
             }
 
-            // Hata riskini sıfırlamak için hem Türkçe hem İngilizce alternatifli olarak veriyi gönderiyoruz
+            // Panele tam uyum sağlaması için tam olarak 'isim' ve 'Yorum' key'lerini gönderiyoruz
+            const payload = {
+                isim: name,
+                Yorum: comment
+            };
+
             const { error } = await supabase
                 .from('oyun_yorumları')
-                .insert([{ 
-                    İsim: name, 
-                    Yorum: comment,
-                    name: name,
-                    comment: comment
-                }]);
+                .insert([payload]);
 
             if (error) {
-                // Eğer üstteki toplu gönderim sütun uyuşmazlığı verirse sadece Türkçe versiyonuyla şansımızı deniyoruz
-                const fallback = await supabase
-                    .from('oyun_yorumları')
-                    .insert([{ İsim: name, Yorum: comment }]);
-                
-                if (fallback.error) {
-                    alert("Yorum gönderilemedi: " + fallback.error.message);
-                } else {
-                    successAction();
-                }
+                alert("Yorum gönderilemedi: " + error.message);
             } else {
-                successAction();
+                document.getElementById('nameInput').value = "";
+                document.getElementById('commentInput').value = "";
+                loadComments();
             }
-        }
-
-        function successAction() {
-            document.getElementById('nameInput').value = "";
-            document.getElementById('commentInput').value = "";
-            loadComments();
         }
 
         document.getElementById('submitBtn').addEventListener('click', addComment);
