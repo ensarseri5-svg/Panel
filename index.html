@@ -9,13 +9,15 @@
         .panel { width: 100%; max-width: 450px; background: var(--card-bg); padding: 20px; border-radius: 25px; border: 2px solid #222; position: relative; }
         h1 { text-align: center; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 20px; margin-top: 10px; }
         .btn { padding: 12px; background: var(--neon-blue); color: #000; font-weight: bold; border-radius: 8px; border: none; width: 100%; margin-bottom: 10px; cursor: pointer; text-decoration: none; display: block; text-align: center; box-sizing: border-box; }
+        .music-btn { background: #ff4444; color: white; margin-bottom: 15px; }
         .exit-btn { position: absolute; top: 15px; right: 15px; background: #ff3333; color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
         .game-card { background: #1e1e30; padding: 15px; border-radius: 15px; margin-bottom: 15px; border-left: 5px solid var(--neon-blue); }
+        .yakin-tarih { color: #ff3366; font-size: 13px; font-weight: bold; display: block; margin-top: 5px; }
         #up-div { display: none; background: #222; padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: center; border: 1px solid var(--neon-blue); }
         .bar { width: 100%; height: 8px; background: #444; border-radius: 4px; margin-top: 10px; }
         #fill { width: 0%; height: 100%; background: var(--neon-blue); transition: width 2s; }
         
-        /* Sohbet ve Yorumlar Bölümü */
+        /* Sohbet Bölümü */
         .chat-section { background: #1e1e30; padding: 15px; border-radius: 15px; margin-top: 25px; border-top: 3px solid var(--neon-blue); }
         .chat-section h2 { font-size: 18px; color: var(--neon-blue); margin-top: 0; }
         .chat-input { width: 100%; padding: 10px; background: #111; border: 1px solid #444; color: #fff; border-radius: 6px; margin-bottom: 8px; font-family: sans-serif; box-sizing: border-box; }
@@ -31,7 +33,11 @@
 
         <h1>Ensar Gamer Zone</h1>
 
-        <button class="btn" style="background:#ff4444;" onclick="check()">GÜNCELLEME DENETLE</button>
+        <!-- Müzik Butonu Slotu (Bakım bitince buraya gelecek) -->
+        <div id="slot-music"></div>
+        <audio id="bg-music" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
+
+        <button class="btn" style="background:#ff4444;" id="update-status-btn" onclick="check()">GÜNCELLEME DENETLE</button>
         <div id="up-div">
             <div id="txt">Sistem kontrol ediliyor...</div>
             <div class="bar"><div id="fill"></div></div>
@@ -40,19 +46,19 @@
         <button class="btn" onclick="showSection('mobile')">MOBİL OYUNLAR</button>
         <button class="btn" onclick="showSection('pc')">PC OYUNLARI</button>
 
-        <!-- MOBİL OYUNLAR (HEPSİ BAKIMDA) -->
+        <!-- MOBİL OYUNLAR -->
         <div id="mobile-section">
-            <div class="game-card"><h3>Null's Brawl</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
-            <div class="game-card"><h3>Car Parking</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
-            <div class="game-card"><h3>Minecraft</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
-            <div class="game-card"><h3>Roblox</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
+            <div class="game-card"><h3>Null's Brawl</h3><div id="slot-nulls"></div></div>
+            <div class="game-card"><h3>Car Parking</h3><div id="slot-car"></div></div>
+            <div class="game-card"><h3>Minecraft</h3><div id="slot-mc"></div></div>
+            <div class="game-card"><h3>Roblox</h3><div id="slot-roblox"></div></div>
         </div>
 
         <!-- PC OYUNLARI -->
         <div id="pc-section" style="display:none;">
-            <div class="game-card"><h3>Forza Horizon 6</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
-            <div class="game-card"><h3>Age of History 3</h3><span class="btn" style="background:#444; color:#aaa; cursor:not-allowed;">YAKINDA</span></div>
-            <div class="game-card"><h3>Spider-Man 2</h3><span class="btn" style="background:#444; color:#aaa; cursor:not-allowed;">YAKINDA</span></div>
+            <div class="game-card"><h3>Forza Horizon 6</h3><div id="slot-forza"></div></div>
+            <div class="game-card"><h3>Age of History 3</h3><span class="btn" style="background:#444; color:#aaa; cursor:not-allowed;">YAKINDA</span><div id="slot-tarih1"></div></div>
+            <div class="game-card"><h3>Spider-Man 2</h3><span class="btn" style="background:#444; color:#aaa; cursor:not-allowed;">YAKINDA</span><div id="slot-tarih2"></div></div>
         </div>
 
         <!-- CANLI SOHBET KUTUSU -->
@@ -63,12 +69,57 @@
             <button class="btn" style="padding:8px; font-size:14px; margin-bottom:0;" onclick="sendMsg()">Mesaj Gönder</button>
             
             <div class="chat-box" id="chat-box">
-                <div class="chat-msg"><span class="badge">Kurucu</span><b>Ensar:</b> Tüm oyunlar eklendi ve sistem şu an genel bakımda beyler! 🔥</div>
+                <div class="chat-msg"><span class="badge">Kurucu</span><b>Ensar:</b> Saat 13:00'te hem indirmeler açılacak hem de yeni özellikler gelecek! 🚀</div>
             </div>
         </div>
     </div>
 
     <script>
+        // Zaman Kontrolü: 13 Temmuz 2026, Saat 13:00:00
+        const hedefZaman = new Date('2026-07-13T13:00:00').getTime();
+        let bakimAktif = true;
+
+        function toggleMusic() { var audio = document.getElementById("bg-music"); audio.paused ? audio.play() : audio.pause(); }
+
+        function zamanKontrol() {
+            const simdi = new Date().getTime();
+            if (simdi >= hedefZaman) {
+                bakimAktif = false;
+                document.getElementById('update-status-btn').style.background = '#00fff0';
+                
+                // 1. MÜZİK BUTONUNU DİREK GETİR
+                document.getElementById('slot-music').innerHTML = '<button class="btn music-btn" onclick="toggleMusic()">🔊 MÜZİĞİ AÇ/KAPA</button>';
+                
+                // 2. YAKINDA OLANLARIN ALTINA TARİH EKLE
+                document.getElementById('slot-tarih1').innerHTML = '<span class="yakin-tarih">⏳ Geliş Tarihi: 2026</span>';
+                document.getElementById('slot-tarih2').innerHTML = '<span class="yakin-tarih">⏳ Geliş Tarihi: 2026</span>';
+
+                // 3. OYUN LİNKLERİNİ AKTİF ET
+                document.getElementById('slot-nulls').innerHTML = '<a href="https://dnull.xyz/latest_bs" class="btn">İNDİR (v57)</a>';
+                document.getElementById('slot-car').innerHTML = '<a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" class="btn">İNDİR (v4.9)</a>';
+                document.getElementById('slot-mc').innerHTML = '<a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" class="btn">İNDİR (v1.21)</a>';
+                document.getElementById('slot-roblox').innerHTML = '<a href="https://www.apkmirror.com/apk/roblox-corporation/roblox/" class="btn">İNDİR</a>';
+                document.getElementById('slot-forza').innerHTML = '<a href="https://gofile.io/d/WfNPB3" class="btn">İNDİR (v1.0)</a>';
+            } else {
+                bakimAktif = true;
+                // Bakım Sırasında Müzik ve Tarihleri Boş Bırak
+                document.getElementById('slot-music').innerHTML = '';
+                document.getElementById('slot-tarih1').innerHTML = '';
+                document.getElementById('slot-tarih2').innerHTML = '';
+
+                // Oyunları Bakımda Göster
+                const bakimButonu = '<button class="btn" onclick="check()">BAKIMDA</button>';
+                document.getElementById('slot-nulls').innerHTML = bakimButonu;
+                document.getElementById('slot-car').innerHTML = bakimButonu;
+                document.getElementById('slot-mc').innerHTML = bakimButonu;
+                document.getElementById('slot-roblox').innerHTML = bakimButonu;
+                document.getElementById('slot-forza').innerHTML = bakimButonu;
+            }
+        }
+
+        zamanKontrol();
+        setInterval(zamanKontrol, 5000); // Her 5 saniyede bir saati kontrol eder
+
         function exitSite() { if(confirm("Siteden çıkış yapmak istiyor musunuz?")) { document.getElementById('main-panel').innerHTML = "<h2 style='text-align:center; color:#ff3333;'>Güle Güle!<br>Ensar Gamer Zone kapatıldı.</h2>"; } }
         function showSection(s) { document.getElementById('mobile-section').style.display = (s === 'mobile') ? 'block' : 'none'; document.getElementById('pc-section').style.display = (s === 'pc') ? 'block' : 'none'; }
         
@@ -78,24 +129,27 @@
             const txt = document.getElementById('txt');
             div.style.display = 'block'; fill.style.width = '0%'; txt.innerText = "Sistem kontrol ediliyor...";
             setTimeout(() => { fill.style.width = '100%'; }, 100);
-            setTimeout(() => { txt.innerHTML = "<b>DİKKAT: BAKIM MODU AKTİF!</b><br>Tüm dosyalar şu an bakımda."; }, 2100);
+            setTimeout(() => { 
+                if(bakimAktif) {
+                    txt.innerHTML = "<b>DİKKAT: BAKIM MODU AKTİF!</b><br>Tüm dosyalar saat 13:00'e kadar bakımda."; 
+                } else {
+                    txt.innerHTML = "<b>SİSTEM GÜNCEL!</b><br>Her şey hazır, iyi oyunlar!"; 
+                }
+            }, 2100);
         }
 
         function sendMsg() {
             const name = document.getElementById('chat-user').value.trim();
             const text = document.getElementById('chat-text').value.trim();
             if(!name || !text) { alert('Lütfen isim ve mesaj alanını doldurun!'); return; }
-            
             const box = document.getElementById('chat-box');
             const newMsg = document.createElement('div');
             newMsg.className = 'chat-msg';
-            
             if(name.toLowerCase() === 'ensar') {
                 newMsg.innerHTML = `<span class="badge">Kurucu</span><b>Ensar:</b> ${text}`;
             } else {
                 newMsg.innerHTML = `<b>${name}:</b> ${text}`;
             }
-            
             box.insertBefore(newMsg, box.firstChild);
             document.getElementById('chat-text').value = '';
         }
