@@ -175,17 +175,17 @@
 
         <div class="game-card">
             <div class="game-title">Car Parking Multiplayer</div>
-            <a href="#" target="_blank" class="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk">İndir (APK)</a>
+            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
         </div>
 
         <div class="game-card">
             <div class="game-title">Minecraft</div>
-            <a href="#" target="_blank" class="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc">İndir (APK)</a>
+            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
         </div>
 
         <div class="game-card">
             <div class="game-title">Null's Brawl Stars</div>
-            <a href="#" target="_blank" class="https://dnull.xyz/latest_bs">İndir (APK)</a>
+            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
         </div>
 
         <hr>
@@ -220,7 +220,6 @@
         async function loadComments() {
             const list = document.getElementById('commentsList');
             
-            // Yeni tablo ismini buraya bağladık
             const { data, error } = await supabase
                 .from('oyun_yorumları')
                 .select('*');
@@ -237,10 +236,14 @@
                 return;
             }
 
-            data.reverse().forEach(item => {
+            // Yeni yorumların en üstte görünmesi için id sırasına göre sıralıyoruz
+            data.sort((a, b) => (b.id || 0) - (a.id || 0));
+
+            data.forEach(item => {
                 const newComment = document.createElement('div');
                 newComment.className = 'comment-item';
-                newComment.innerHTML = `<div class="comment-author">${escapeHTML(item.name || 'Anonim')}</div><div>${escapeHTML(item.comment || '')}</div>`;
+                // Paneldeki Türkçe sütun adlarını doğrudan okuyoruz: İsim ve Yorum
+                newComment.innerHTML = `<div class="comment-author">${escapeHTML(item.İsim || item.name || 'Anonim')}</div><div>${escapeHTML(item.Yorum || item.comment || '')}</div>`;
                 list.appendChild(newComment);
             });
         }
@@ -254,17 +257,36 @@
                 return;
             }
 
+            // Hata riskini sıfırlamak için hem Türkçe hem İngilizce alternatifli olarak veriyi gönderiyoruz
             const { error } = await supabase
                 .from('oyun_yorumları')
-                .insert([{ name: name, comment: comment }]);
+                .insert([{ 
+                    İsim: name, 
+                    Yorum: comment,
+                    name: name,
+                    comment: comment
+                }]);
 
             if (error) {
-                alert("Yorum gönderilemedi: " + error.message);
+                // Eğer üstteki toplu gönderim sütun uyuşmazlığı verirse sadece Türkçe versiyonuyla şansımızı deniyoruz
+                const fallback = await supabase
+                    .from('oyun_yorumları')
+                    .insert([{ İsim: name, Yorum: comment }]);
+                
+                if (fallback.error) {
+                    alert("Yorum gönderilemedi: " + fallback.error.message);
+                } else {
+                    successAction();
+                }
             } else {
-                document.getElementById('nameInput').value = "";
-                document.getElementById('commentInput').value = "";
-                loadComments();
+                successAction();
             }
+        }
+
+        function successAction() {
+            document.getElementById('nameInput').value = "";
+            document.getElementById('commentInput').value = "";
+            loadComments();
         }
 
         document.getElementById('submitBtn').addEventListener('click', addComment);
