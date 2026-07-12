@@ -175,17 +175,17 @@
 
         <div class="game-card">
             <div class="game-title">Car Parking Multiplayer</div>
-            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
+            <a href="#" target="_blank" class="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk">İndir (APK)</a>
         </div>
 
         <div class="game-card">
             <div class="game-title">Minecraft</div>
-            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
+            <a href="#" target="_blank" class="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc">İndir (APK)</a>
         </div>
 
         <div class="game-card">
             <div class="game-title">Null's Brawl Stars</div>
-            <a href="#" target="_blank" class="download-btn">İndir (APK)</a>
+            <a href="#" target="_blank" class="https://dnull.xyz/latest_bs">İndir (APK)</a>
         </div>
 
         <hr>
@@ -209,7 +209,6 @@
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
         const SUPABASE_URL = "https://bmjbmoejylecdcrgendz.supabase.co";
-        // BURAYA: tırnak işaretlerini silmeden sadece içini temizleyip anon keyini yapıştır:
         const SUPABASE_ANON_KEY = "sb_publishable_EJqiyDVkxJlwvOJf1rk_dw_eKSS2W_g";
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -223,8 +222,7 @@
             
             const { data, error } = await supabase
                 .from('comments')
-                .select('*')
-                .order('created_at', { ascending: false });
+                .select('*');
 
             if (error) {
                 list.innerHTML = `<div class="comment-item" style="border-left-color: red;">Hata: ${error.message}</div>`;
@@ -238,7 +236,7 @@
                 return;
             }
 
-            data.forEach(item => {
+            data.reverse().forEach(item => {
                 const newComment = document.createElement('div');
                 newComment.className = 'comment-item';
                 newComment.innerHTML = `<div class="comment-author">${escapeHTML(item.name)}</div><div>${escapeHTML(item.comment)}</div>`;
@@ -268,10 +266,7 @@
             }
         }
 
-        // Buton tıklamasını bağlama
         document.getElementById('submitBtn').addEventListener('click', addComment);
-
-        // Sayfa yüklenince otomatik çalıştır
         loadComments();
     </script>
 
