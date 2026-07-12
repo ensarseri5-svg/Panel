@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oyun İndirme Paneli</title>
-    <!-- Supabase Veri Tabanı Kütüphanesi -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Supabase Kütüphanesi (En Garanti Yöntem) -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    
     <style>
         * {
             margin: 0;
@@ -212,27 +214,30 @@
     </div>
 
     <script>
-        // Supabase bağlantı adresi entegre edildi
         const SUPABASE_URL = "https://bmjbmoejylecdcrgendz.supabase.co";
-        
-        // BURAYA Supabase panelindeki Settings > API kısmından kopyaladığın uzun anon public kodunu yapıştır:
+        // AŞAĞIYA Supabase panelinden kopyaladığın uzun anon public anahtarını yapıştır:
         const SUPABASE_ANON_KEY = "bmjbmoejylecdcrgendz";
         
-        const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+        // Supabase nesnesini güvenli şekilde başlatma
+        const supabase = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
         async function loadComments() {
-            if(!supabase) return;
+            const list = document.getElementById('commentsList');
+            if(!supabase) {
+                list.innerHTML = '<div class="comment-item" style="border-left-color: red;">Bağlantı Hatası: Supabase kütüphanesi yüklenemedi.</div>';
+                return;
+            }
+            
             const { data, error } = await supabase
                 .from('comments')
                 .select('*')
                 .order('created_at', { ascending: false });
 
             if (error) {
-                console.log('Yorumlar yüklenemedi:', error);
+                list.innerHTML = `<div class="comment-item" style="border-left-color: red;">Hata: ${error.message}</div>`;
                 return;
             }
 
-            const list = document.getElementById('commentsList');
             list.innerHTML = '';
 
             if(!data || data.length === 0) {
@@ -267,8 +272,7 @@
                 .insert([{ name: name, comment: comment }]);
 
             if (error) {
-                alert("Yorum gönderilemedi! Lütfen Supabase'de 'comments' tablosu oluşturduğunuzdan emin olun.");
-                console.error(error);
+                alert("Yorum gönderilemedi: " + error.message);
             } else {
                 document.getElementById('nameInput').value = "";
                 document.getElementById('commentInput').value = "";
@@ -280,7 +284,12 @@
             return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
         }
 
-        if(supabase) loadComments();
+        // Sayfa açıldığında fonksiyonu tetikle
+        if(supabase) {
+            loadComments();
+        } else {
+            document.getElementById('commentsList').innerHTML = '<div class="comment-item" style="border-left-color: red;">Bağlantı Kurulamadı!</div>';
+        }
     </script>
 
 </body>
