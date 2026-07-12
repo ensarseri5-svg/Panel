@@ -3,79 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ensar Gamer Zone</title>
+    <title>Ensar Gamer Zone v3</title>
     <style>
         :root { --neon-blue: #00fff0; --dark-bg: #0a0a12; --card-bg: #161625; }
         body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; }
-        .panel { width: 100%; max-width: 450px; background: var(--card-bg); padding: 30px; border-radius: 25px; border: 2px solid #222; box-shadow: 0 0 20px rgba(0, 255, 240, 0.1); }
-        h1 { text-align: center; color: var(--neon-blue); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-        .about-msg { background: #1a1a2e; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--neon-blue); font-size: 14px; line-height: 1.5; color: #ddd; }
-        .pc-games-title { text-align: center; color: var(--neon-blue); font-size: 20px; margin: 20px 0; font-weight: bold; }
+        .panel { width: 100%; max-width: 450px; background: var(--card-bg); padding: 30px; border-radius: 25px; border: 2px solid #222; }
+        h1 { text-align: center; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 20px; }
+        .about-msg { background: #1a1a2e; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid var(--neon-blue); font-size: 14px; color: #ddd; }
         .game-card { background: #1e1e30; padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 5px solid var(--neon-blue); }
-        .btn { display: block; width: 100%; padding: 12px; background: var(--neon-blue); color: #000; font-weight: bold; text-align: center; border-radius: 8px; text-decoration: none; margin-top: 10px; }
-        input, textarea { width: 100%; padding: 12px; margin: 8px 0; background: #0a0a12; border: 1px solid #333; color: white; border-radius: 8px; outline: none; }
-        .submit-btn { width: 100%; padding: 12px; background: #555; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .submit-btn:hover { background: var(--neon-blue); color: #000; }
-        .comment-item { background: #1a1a2e; padding: 12px; margin-top: 10px; border-radius: 10px; font-size: 14px; }
+        .btn { display: block; width: 100%; padding: 12px; background: var(--neon-blue); color: #000; font-weight: bold; text-align: center; border-radius: 8px; text-decoration: none; }
+        .pc-title { text-align: center; color: var(--neon-blue); font-weight: bold; margin: 20px 0; }
+        input, textarea { width: 100%; padding: 12px; margin: 8px 0; background: #0a0a12; border: 1px solid #333; color: white; border-radius: 8px; }
+        .submit-btn { width: 100%; padding: 12px; background: #555; color: white; border: none; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
-
     <div class="panel">
         <h1>Ensar Gamer Zone</h1>
-        
         <div class="about-msg">
             Selam, ben Ensar ve burası benim oyun dünyam. Bu platformu sizler için en kaliteli içerikleri paylaşmak amacıyla kurdum. Oyun tutkumu sizlerle bu panel üzerinden birleştirmek istedim. Yakında çok daha fazla içerik ve özel indirmelerle karşınızda olacağım. Takipte kalarak bu heyecana ortak olmaya devam edin.
         </div>
-
+        
+        <!-- Oyunlar -->
+        <div class="game-card"><h3>Car Parking</h3><a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" class="btn">İNDİR (APK)</a></div>
+        <div class="game-card"><h3>Minecraft</h3><a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" class="btn">İNDİR (APK)</a></div>
+        <div class="game-card"><h3>Brawl Stars</h3><a href="https://dnull.xyz/latest_bs" class="btn">İNDİR (APK)</a></div>
         <div class="game-card">
-            <h3>Car Parking Multiplayer</h3>
-            <a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" class="btn" target="_blank">İNDİR (APK)</a>
-        </div>
-        <div class="game-card">
-            <h3>Minecraft</h3>
-            <a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" class="btn" target="_blank">İNDİR (APK)</a>
-        </div>
-        <div class="game-card">
-            <h3>nuls brawl</h3>
-            <a href="https://dnull.xyz/latest_bs" class="btn" target="_blank">İNDİR (APK)</a>
-        </div>
-        <div class="game-card">
-            <h3>Roblox(modsuz)</h3>
-            <a href="https://www.apkmirror.com/wp-content/themes/APKMirror/download.php?id=14166362&key=a87cc1e54de000c4e7ed35f268bf3c03e1881297&forcebaseapk=true" class="btn" target="_blank">İNDİR (APK)</a>
+            <h3>Roblox</h3>
+            <a href="https://www.apkmirror.com/apk/roblox-corporation/roblox/" class="btn" target="_blank">APKMirror'dan İNDİR</a>
         </div>
 
-        <div class="pc-games-title">YAKINDA PC GAMES</div>
+        <div class="pc-title">YAKINDA PC GAMES</div>
 
-        <div style="margin-top: 40px;">
-            <h2 style="color:var(--neon-blue)">Yorumlar</h2>
-            <input type="text" id="name" placeholder="Oyuncu Adın...">
-            <textarea id="comment" placeholder="Yorumunu yaz..."></textarea>
-            <button class="submit-btn" id="send">GÖNDER</button>
-            <div id="comment-list"></div>
-        </div>
+        <h2 style="color:var(--neon-blue)">Yorumlar</h2>
+        <input type="text" id="name" placeholder="Adın">
+        <textarea id="comment" placeholder="Yorumun..."></textarea>
+        <button class="submit-btn" id="send">GÖNDER</button>
+        <div id="comment-list"></div>
     </div>
 
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
         const supabase = createClient("https://bmjbmoejylecdcrgendz.supabase.co", "sb_publishable_EJqiyDVkxJlwvOJf1rk_dw_eKSS2W_g");
-
         async function load() {
             const { data } = await supabase.from('yorumlar').select('*').order('id', { ascending: false });
-            if(data) {
-                document.getElementById('comment-list').innerHTML = data.map(i => 
-                    `<div class="comment-item"><b>${i.isim}</b>: ${i.yorum}</div>`).join('');
-            }
+            if(data) document.getElementById('comment-list').innerHTML = data.map(i => `<div style="background:#222; padding:10px; margin-top:5px; border-radius:5px;"><b>${i.isim}</b>: ${i.yorum}</div>`).join('');
         }
-
         document.getElementById('send').onclick = async () => {
             const n = document.getElementById('name').value;
             const c = document.getElementById('comment').value;
             if(!n || !c) return alert("Hepsini doldur!");
             await supabase.from('yorumlar').insert({ isim: n, yorum: c });
-            document.getElementById('name').value = '';
-            document.getElementById('comment').value = '';
-            load();
+            document.getElementById('name').value = ''; document.getElementById('comment').value = ''; load();
         };
         load();
     </script>
