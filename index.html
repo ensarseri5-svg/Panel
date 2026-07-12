@@ -9,10 +9,8 @@
         .panel { width: 100%; max-width: 450px; background: var(--card-bg); padding: 20px; border-radius: 25px; border: 2px solid #222; position: relative; }
         h1 { text-align: center; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 20px; margin-top: 10px; }
         .btn { padding: 12px; background: var(--neon-blue); color: #000; font-weight: bold; border-radius: 8px; border: none; width: 100%; margin-bottom: 10px; cursor: pointer; text-decoration: none; display: block; text-align: center; box-sizing: border-box; }
-        .music-btn { background: #ff4444; color: white; margin-bottom: 15px; }
         .exit-btn { position: absolute; top: 15px; right: 15px; background: #ff3333; color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
         .game-card { background: #1e1e30; padding: 15px; border-radius: 15px; margin-bottom: 15px; border-left: 5px solid var(--neon-blue); }
-        .yakin-tarih { color: #ff3366; font-size: 13px; font-weight: bold; display: block; margin-top: 5px; }
         #up-div { display: none; background: #222; padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: center; border: 1px solid var(--neon-blue); }
         .bar { width: 100%; height: 8px; background: #444; border-radius: 4px; margin-top: 10px; }
         #fill { width: 0%; height: 100%; background: var(--neon-blue); transition: width 2s; }
@@ -24,7 +22,7 @@
         .chat-box { max-height: 200px; overflow-y: auto; margin-top: 10px; background: #111; padding: 8px; border-radius: 6px; display: flex; flex-direction: column-reverse; }
         .chat-msg { background: #222; padding: 8px; border-radius: 5px; margin-bottom: 6px; font-size: 13px; border-left: 3px solid var(--neon-blue); text-align: left; }
         .chat-msg b { color: var(--neon-blue); }
-        .badge { background: #ff3366; color: white; padding: 2px 5px; border-radius: 4px; font-size: 10px; margin-right: 5px; font-weight: bold; }
+        .badge { background: #ffcc00; color: #000; padding: 2px 5px; border-radius: 4px; font-size: 10px; margin-right: 5px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -32,9 +30,6 @@
         <button class="exit-btn" onclick="exitSite()">X</button>
 
         <h1>Ensar Gamer Zone</h1>
-        
-        <button class="btn music-btn" onclick="toggleMusic()">🔊 MÜZİĞİ AÇ/KAPA</button>
-        <audio id="bg-music" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
 
         <button class="btn" style="background:#ff4444;" onclick="check()">GÜNCELLEME DENETLE</button>
         <div id="up-div">
@@ -45,15 +40,19 @@
         <button class="btn" onclick="showSection('mobile')">MOBİL OYUNLAR</button>
         <button class="btn" onclick="showSection('pc')">PC OYUNLARI</button>
 
+        <!-- MOBİL OYUNLAR (HEPSİ BAKIMDA) -->
         <div id="mobile-section">
             <div class="game-card"><h3>Null's Brawl</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
             <div class="game-card"><h3>Car Parking</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
+            <div class="game-card"><h3>Minecraft</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
+            <div class="game-card"><h3>Roblox</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
         </div>
 
+        <!-- PC OYUNLARI -->
         <div id="pc-section" style="display:none;">
             <div class="game-card"><h3>Forza Horizon 6</h3><button class="btn" onclick="check()">BAKIMDA</button></div>
-            <div class="game-card"><h3>Age of History 3</h3><span class="btn" style="background:#444; color:#aaa; cursor:not-allowed;">YAKINDA</span><span class="yakin-tarih">⏳ Geliş Tarihi: 2026</span></div>
-            <div class="game-card"><h3>Spider-Man 2</h3><span class="btn" style="background:#444; color:#aaa; cursor:not-allowed;">YAKINDA</span><span class="yakin-tarih">⏳ Geliş Tarihi: 2026</span></div>
+            <div class="game-card"><h3>Age of History 3</h3><span class="btn" style="background:#444; color:#aaa; cursor:not-allowed;">YAKINDA</span></div>
+            <div class="game-card"><h3>Spider-Man 2</h3><span class="btn" style="background:#444; color:#aaa; cursor:not-allowed;">YAKINDA</span></div>
         </div>
 
         <!-- CANLI SOHBET KUTUSU -->
@@ -64,13 +63,12 @@
             <button class="btn" style="padding:8px; font-size:14px; margin-bottom:0;" onclick="sendMsg()">Mesaj Gönder</button>
             
             <div class="chat-box" id="chat-box">
-                <div class="chat-msg"><span class="badge" style="background:#ffcc00; color:#000;">Kurucu</span><b>Ensar:</b> Selam beyler, hoş geldiniz! Sohbet alanımız aktif.</div>
+                <div class="chat-msg"><span class="badge">Kurucu</span><b>Ensar:</b> Tüm oyunlar eklendi ve sistem şu an genel bakımda beyler! 🔥</div>
             </div>
         </div>
     </div>
 
     <script>
-        function toggleMusic() { var audio = document.getElementById("bg-music"); audio.paused ? audio.play() : audio.pause(); }
         function exitSite() { if(confirm("Siteden çıkış yapmak istiyor musunuz?")) { document.getElementById('main-panel').innerHTML = "<h2 style='text-align:center; color:#ff3333;'>Güle Güle!<br>Ensar Gamer Zone kapatıldı.</h2>"; } }
         function showSection(s) { document.getElementById('mobile-section').style.display = (s === 'mobile') ? 'block' : 'none'; document.getElementById('pc-section').style.display = (s === 'pc') ? 'block' : 'none'; }
         
@@ -92,9 +90,8 @@
             const newMsg = document.createElement('div');
             newMsg.className = 'chat-msg';
             
-            // Eğer isme Ensar yazılırsa otomatik kurucu rozeti ekler
             if(name.toLowerCase() === 'ensar') {
-                newMsg.innerHTML = `<span class="badge" style="background:#ffcc00; color:#000;">Kurucu</span><b>Ensar:</b> ${text}`;
+                newMsg.innerHTML = `<span class="badge">Kurucu</span><b>Ensar:</b> ${text}`;
             } else {
                 newMsg.innerHTML = `<b>${name}:</b> ${text}`;
             }
