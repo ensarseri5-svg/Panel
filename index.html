@@ -2,121 +2,271 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Ensar Gamer Zone - Premium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ensar Zone - Premium Dashboard</title>
     <style>
-        :root { --neon-blue: #00fff0; --dark-bg: #0a0a12; --card-bg: #161625; }
-        body { background: var(--dark-bg); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; }
-        .panel { width: 100%; max-width: 450px; background: var(--card-bg); padding: 20px; border-radius: 25px; border: 2px solid #222; position: relative; }
-        h1 { text-align: center; color: var(--neon-blue); text-transform: uppercase; margin-bottom: 20px; font-size: 22px; }
-        .btn { padding: 12px; background: var(--neon-blue); color: #000; font-weight: bold; border-radius: 8px; border: none; width: 100%; margin-bottom: 10px; cursor: pointer; text-align: center; font-size: 14px; text-decoration: none; display: block; box-sizing: border-box; }
-        .logout-btn { background: #ff4444; color: white; padding: 5px 10px; font-size: 12px; font-weight: bold; border-radius: 5px; border: none; cursor: pointer; position: absolute; top: 20px; right: 20px; }
-        .category-panel { display: none; background: #11111e; padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #333; }
-        .game-card { background: #1e1e30; padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 5px solid var(--neon-blue); }
-        .game-card.coming-soon { border-left: 5px solid #ff7700; }
-        .date-text { color: #ff7700; font-size: 12px; font-weight: bold; margin-top: 5px; display: block; }
-        .cat-title { color: #fff; font-size: 16px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; }
-        .login-input { width: 100%; padding: 12px; background: #111; border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; }
-        
-        /* Beta Butonu */
-        @keyframes rgb-anim { 0%{filter:hue-rotate(0deg);} 100%{filter:hue-rotate(360deg);} }
-        .beta-btn { background: linear-gradient(90deg, #ff0000, #ff00ff, #0000ff, #00ffff, #00ff00, #ffff00, #ff0000); background-size: 400%; animation: rgb-anim 3s linear infinite; color: white; margin-top: 15px; }
+        :root { 
+            --neon-blue: #00f0ff; 
+            --cyber-purple: #bd00ff;
+            --dark-bg: #080810; 
+            --panel-bg: rgba(22, 22, 37, 0.75);
+            --card-bg: rgba(30, 30, 50, 0.5); 
+        }
 
-        /* Yorumlar Alanı */
-        .comment-section { background: #1e1e30; padding: 15px; border-radius: 15px; margin-top: 20px; border-top: 3px solid var(--neon-blue); }
-        .comment-box { background: #111; max-height: 150px; overflow-y: auto; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 13px; text-align: left; min-height: 40px; }
-        .comment-msg { margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid #222; }
-        .no-comments { color: #555; font-style: italic; text-align: center; }
+        /* Genel Temizlik ve Harika Arka Plan */
+        body { 
+            background: var(--dark-bg); 
+            background-image: radial-gradient(circle at 50% 50%, #15102a 0%, var(--dark-bg) 80%);
+            color: #fff; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            margin: 0; 
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Cam Efektli (Glassmorphism) Modern Panel */
+        .panel { 
+            width: 100%; 
+            max-width: 460px; 
+            background: var(--panel-bg); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 30px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            position: relative; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.1);
+        }
+
+        /* Parlayan Siber Başlıklar */
+        h1 { 
+            text-align: center; 
+            text-transform: uppercase; 
+            margin-top: 0;
+            margin-bottom: 25px; 
+            font-size: 26px; 
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        /* Modern ve Neon Input Kutuları */
+        .login-input { 
+            width: 100%; 
+            padding: 14px; 
+            background: rgba(0, 0, 0, 0.4); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            color: #fff; 
+            border-radius: 12px; 
+            margin-bottom: 15px; 
+            box-sizing: border-box; 
+            text-align: center; 
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+        .login-input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Premium Oyuncu Butonları */
+        .btn { 
+            padding: 14px; 
+            color: #000; 
+            font-weight: bold; 
+            border-radius: 12px; 
+            border: none; 
+            width: 100%; 
+            margin-bottom: 12px; 
+            cursor: pointer; 
+            text-align: center; 
+            font-size: 14px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none; 
+            display: block; 
+            box-sizing: border-box; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 240, 255, 0.4);
+            filter: brightness(1.2);
+        }
+        .btn:active { transform: translateY(1px); }
+
+        /* Üst Menü Bilgi Kartı */
+        .user-badge {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* Çıkış Butonu */
+        .logout-btn { 
+            background: rgba(255, 68, 68, 0.15); 
+            color: #ff5555; 
+            padding: 8px 14px; 
+            font-size: 12px; 
+            font-weight: bold; 
+            border-radius: 20px; 
+            border: 1px solid rgba(255, 85, 85, 0.3); 
+            cursor: pointer; 
+            position: absolute; 
+            top: 30px; 
+            right: 30px; 
+            transition: 0.2s;
+        }
+        .logout-btn:hover { background: #ff4444; color: #fff; }
+
+        /* Kategori İçerik Alanları */
+        .category-panel { 
+            display: none; 
+            background: rgba(0, 0, 0, 0.2); 
+            padding: 15px; 
+            border-radius: 16px; 
+            margin-bottom: 15px; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* Yenilenmiş Oyun Kartları */
+        .game-card { 
+            background: var(--card-bg); 
+            padding: 15px; 
+            border-radius: 14px; 
+            margin-bottom: 12px; 
+            border-left: 4px solid var(--neon-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .game-card h3 { margin: 0; font-size: 16px; font-weight: 600; }
+        .game-card .btn { width: auto; padding: 8px 20px; margin-bottom: 0; font-size: 12px; }
+
+        .date-text { color: #ff9900; font-size: 12px; font-weight: bold; }
+        .cat-title { color: #fff; font-size: 15px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+
+        /* AI Alanı */
+        .ai-section { background: var(--card-bg); padding: 15px; border-radius: 16px; margin-top: 25px; border-top: 3px solid var(--cyber-purple); }
+        .ai-qa-btn { background: rgba(189, 0, 255, 0.05); color: #e9bcff; border: 1px solid rgba(189, 0, 255, 0.2); padding: 10px; border-radius: 10px; font-size: 12px; text-align: left; width: 100%; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
+        .ai-qa-btn:hover { background: rgba(189, 0, 255, 0.15); border-color: var(--cyber-purple); }
+        #ai-box { background: rgba(0, 0, 0, 0.4); padding: 12px; border-radius: 10px; margin-top: 10px; font-size: 13px; display: none; line-height: 1.5; border: 1px solid rgba(189, 0, 255, 0.1); }
+
+        /* Yorum Modülü */
+        .comment-section { background: var(--card-bg); padding: 15px; border-radius: 16px; margin-top: 20px; border-top: 3px solid var(--neon-blue); }
+        .comment-box { background: rgba(0, 0, 0, 0.3); max-height: 140px; overflow-y: auto; padding: 12px; border-radius: 10px; margin-bottom: 12px; font-size: 13px; min-height: 40px; }
+        .comment-msg { margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .no-comments { color: #666; font-style: italic; text-align: center; padding-top: 10px; }
+        
+        .comment-controls { display: flex; gap: 8px; }
+        .comment-controls input { flex: 1; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; }
+        .comment-controls input:focus { outline: none; border-color: var(--neon-blue); }
+        .comment-controls button { padding: 10px 16px; background: var(--neon-blue); border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: #000; }
+
+        /* Animasyon */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- GİRİŞ SİSTEMİ -->
     <div class="panel" id="login-panel">
-        <h1>Giriş Sistemi</h1>
+        <h1 style="color: var(--neon-blue);">Giriş Kontrol</h1>
         <input type="text" id="login-user" class="login-input" placeholder="Kullanıcı Adı">
         <input type="password" id="login-pass" class="login-input" placeholder="Şifre">
-        <button class="btn" style="background:#ffcc00;" onclick="checkLogin()">SİTEYE GİRİŞ YAP</button>
+        <button class="btn" style="background: linear-gradient(90deg, #00f0ff, #00a8ff);" onclick="handleSystemLogin()">Sisteme Doğrula</button>
     </div>
 
-    <!-- v1.1 ANA SÜRÜM -->
     <div class="panel" id="main-panel" style="display:none;">
-        <button class="logout-btn" onclick="logout()">❌ Çıkış Yap</button>
-        <h1 id="title" style="margin-top: 25px;">Ensar Zone v1.1</h1>
+        <button class="logout-btn" onclick="location.reload()">❌ Çıkış</button>
+        
+        <div class="user-badge" id="user-display">Yükleniyor...</div>
+        <h1 id="title" style="color: var(--neon-blue); text-align: left;">Ensar Zone</h1>
 
-        <button class="btn" style="background:#00fff0; color:#000;" onclick="toggleCategory('mobile-sect')">📱 MOBILE GAMES</button>
-        <button class="btn" style="background:#00fff0; color:#000;" onclick="toggleCategory('pc-sect')">💻 PC GAMES</button>
+        <button class="btn" style="background: linear-gradient(90deg, #bd00ff, #8900ff); color: white;" onclick="toggleCategory('mobile-sect')">📱 MOBILE GAMES</button>
+        <button class="btn" style="background: linear-gradient(90deg, #00f0ff, #00a8ff);" onclick="toggleCategory('pc-sect')">💻 PC GAMES</button>
 
         <div id="mobile-sect" class="category-panel">
-            <div class="cat-title">📱 Mobil Oyunlar</div>
-            <div class="game-card"><h3>Null's Brawl</h3><a href="https://dnull.xyz/latest_bs" target="_blank" class="btn">İNDİR</a></div>
-            <div class="game-card"><h3>Car Parking</h3><a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" target="_blank" class="btn">İNDİR</a></div>
-            <div class="game-card"><h3>Minecraft</h3><a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" target="_blank" class="btn">İNDİR</a></div>
-            <div class="game-card"><h3>Roblox</h3><a href="https://www.apkmirror.com/apk/roblox-corporation/roblox/" target="_blank" class="btn">İNDİR</a></div>
+            <div class="cat-title" style="color: var(--cyber-purple);">📱 Mobil Oyun Arşivi</div>
+            <div class="game-card"><h3>Null's Brawl</h3><a href="https://dnull.xyz/latest_bs" target="_blank" class="btn" style="background:var(--neon-blue);">İNDİR</a></div>
+            <div class="game-card"><h3>Car Parking</h3><a href="https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk" target="_blank" class="btn" style="background:var(--neon-blue);">İNDİR</a></div>
+            <div class="game-card"><h3>Minecraft</h3><a href="https://cloud.mail.ru/public/KbyR/tPA1fH7Tc" target="_blank" class="btn" style="background:var(--neon-blue);">İNDİR</a></div>
+            <div class="game-card"><h3>Roblox</h3><a href="https://www.apkmirror.com/apk/roblox-corporation/roblox/" target="_blank" class="btn" style="background:var(--neon-blue);">İNDİR</a></div>
         </div>
 
         <div id="pc-sect" class="category-panel">
-            <div class="cat-title">💻 PC Games</div>
-            <div class="game-card"><h3>Forza Horizon 6</h3><a href="https://gofile.io/d/WfNPB3" target="_blank" class="btn">İNDİR</a></div>
-            <div class="game-card coming-soon">
+            <div class="cat-title" style="color: var(--neon-blue);">💻 PC Oyun Arşivi</div>
+            <div class="game-card"><h3>Forza Horizon 6</h3><a href="https://gofile.io/d/WfNPB3" target="_blank" class="btn" style="background:var(--neon-blue);">İNDİR</a></div>
+            <div class="game-card" style="border-left-color: #ff9900;">
                 <h3>Age of History 3</h3>
-                <span class="date-text">⏳ DURUM: Yakında Eklenecek...</span>
+                <span class="date-text">⏳ YAKINDA...</span>
             </div>
+        </div>
+
+        <div class="ai-section">
+            <h3 style="margin-top:0; color:var(--cyber-purple); font-size: 16px;">🤖 Yapay Zeka Desteği</h3>
+            <button class="ai-qa-btn" onclick="askAI(1)">❓ Sitenin genel özellikleri nelerdir?</button>
+            <button class="ai-qa-btn" onclick="askAI(2)">❓ Bu korumalı giriş sistemi nasıl çalışır?</button>
+            <button class="ai-qa-btn" onclick="askAI(3)">❓ Kurucu Ensar kimdir?</button>
+            <div id="ai-box"></div>
         </div>
 
         <div class="comment-section">
-            <h3 style="margin-top:0; color:var(--neon-blue); font-size:16px;">💬 Ziyaretçi Yorumları</h3>
+            <h3 style="margin-top:0; color:var(--neon-blue); font-size:16px;">💬 Canlı Ziyaretçi Duvarı</h3>
             <div class="comment-box" id="comments">
-                <div class="no-comments" id="no-comm-txt">Henüz yorum yapılmamış.</div>
+                <div class="no-comments" id="no-comm-txt">Duvar şu an boş. İlk yorumu sen bırak!</div>
             </div>
-            <input type="text" id="comment-input" placeholder="Yorum yaz..." style="width:74%; padding:8px; background:#111; border:1px solid #444; color:#fff; border-radius:5px;">
-            <button onclick="addComment()" style="width:21%; padding:8px; background:var(--neon-blue); border:none; border-radius:5px; font-weight:bold; cursor:pointer;">OK</button>
+            <div class="comment-controls">
+                <input type="text" id="comment-input" placeholder="Mesajınızı yazın...">
+                <button onclick="addComment()">GÖNDER</button>
+            </div>
         </div>
-
-        <button class="btn beta-btn" onclick="goToBetaBranch()">🚀 SÜRÜM 1.2 BETA DALINA GEÇ</button>
     </div>
 
     <script>
         let currentUser = "Ziyaretçi";
 
-        // URL Kontrolü: Eğer doğrudan beta parametresiyle gelinmişse şifre sor
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('branch') === 'beta') {
-                document.getElementById('login-panel').style.display = 'none';
-                goToBetaBranch();
-            }
-        }
-
-        function checkLogin() {
+        function handleSystemLogin() {
             const user = document.getElementById('login-user').value.trim();
             const pass = document.getElementById('login-pass').value.trim();
-            if(user === "" || pass === "") { alert("Boş bırakma!"); return; }
-            if(pass === '1453') currentUser = "Kurucu Ensar 👑";
-            else currentUser = user;
+
+            // Sadece En sar ve 1453 yazan kurucu olur, ipucu asla yok
+            if (user === "En sar" && pass === "1453") {
+                currentUser = "Kurucu Ensar 👑";
+                document.getElementById('user-display').style.color = "var(--neon-blue)";
+                document.getElementById('user-display').style.borderColor = "var(--neon-blue)";
+            } else {
+                currentUser = user !== "" ? user : "Ziyaretçi";
+            }
+
+            document.getElementById('user-display').innerText = "Oturum: " + currentUser;
             document.getElementById('login-panel').style.display = 'none';
             document.getElementById('main-panel').style.display = 'block';
         }
 
-        function logout() {
-            document.getElementById('login-user').value = "";
-            document.getElementById('login-pass').value = "";
-            document.getElementById('main-panel').style.display = 'none';
-            document.getElementById('login-panel').style.display = 'block';
-        }
-
         function toggleCategory(id) {
             const sect = document.getElementById(id);
-            sect.style.display = (sect.style.display === "block") ? "none" : "block";
-        }
-
-        function goToBetaBranch() {
-            const pass = prompt("Lütfen Geliştirici 4 Haneli Sürüm 1.2 BETA Şifresini Girin:");
-            if (pass === '1836') {
-                // Şifre doğruysa beta dalının linkine yönlendir
-                window.location.href = "https://ensarseri5-svg.github.io/Panel/?branch=beta_active";
+            if (sect.style.display === "block") {
+                sect.style.display = "none";
             } else {
-                alert("Hatalı Şifre! Ana sisteme yönlendiriliyorsunuz.");
-                window.location.href = "https://ensarseri5-svg.github.io/Panel/";
+                // Diğer kategoriyi kapat pürüzsüz görünsün
+                document.getElementById('mobile-sect').style.display = "none";
+                document.getElementById('pc-sect').style.display = "none";
+                sect.style.display = "block";
             }
         }
 
@@ -126,9 +276,21 @@
                 const box = document.getElementById('comments');
                 const noCommTxt = document.getElementById('no-comm-txt');
                 if(noCommTxt) noCommTxt.remove();
-                box.innerHTML += `<div class="comment-msg"><b>${currentUser}:</b> ${input.value}</div>`;
+                
+                let nameStyle = currentUser.includes('👑') ? 'color:var(--neon-blue);' : 'color:#aaa;';
+                
+                box.innerHTML += `<div class="comment-msg"><b style="${nameStyle}">${currentUser}:</b> ${input.value}</div>`;
                 input.value = "";
+                box.scrollTop = box.scrollHeight; // Yeni yorum gelince otomatik aşağı kaydır
             }
+        }
+
+        function askAI(id) {
+            const box = document.getElementById('ai-box');
+            box.style.display = 'block';
+            if(id === 1) box.innerHTML = "🤖 <b>Yapay Zeka:</b> Platform yüksek güvenlikli giriş katmanına, premium oyun arşivlerine ve dinamik arayüz elementlerine sahiptir.";
+            else if(id === 2) box.innerHTML = "🤖 <b>Yapay Zeka:</b> Kurucu girişi için özel ad/şifre gerekir. Harici tüm kelimeler sisteme 'Ziyaretçi' girişi sağlar.";
+            else if(id === 3) box.innerHTML = "🤖 <b>Yapay Zeka:</b> Ensar bu siber alanın tek mimarı, kurucu lideri ve mutlak yöneticisidir.";
         }
     </script>
 </body>
