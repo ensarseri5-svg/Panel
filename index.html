@@ -72,12 +72,21 @@
             <button onclick="addComment()" style="width:21%; padding:8px; background:var(--neon-blue); border:none; border-radius:5px; font-weight:bold; cursor:pointer;">OK</button>
         </div>
 
-        <!-- NOT: Buradaki linki kendi GitHub sitene göre güncelleyebilirsin -->
-        <a href="https://ensarseri5-svg.github.io/Panel/?branch=beta" class="btn beta-btn">🚀 SÜRÜM 1.2 BETA DALINA GEÇ</a>
+        <button class="btn beta-btn" onclick="goToBetaBranch()">🚀 SÜRÜM 1.2 BETA DALINA GEÇ</button>
     </div>
 
     <script>
         let currentUser = "Ziyaretçi";
+
+        // URL Kontrolü: Eğer doğrudan beta parametresiyle gelinmişse şifre sor
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('branch') === 'beta') {
+                document.getElementById('login-panel').style.display = 'none';
+                goToBetaBranch();
+            }
+        }
+
         function checkLogin() {
             const user = document.getElementById('login-user').value.trim();
             const pass = document.getElementById('login-pass').value.trim();
@@ -87,17 +96,30 @@
             document.getElementById('login-panel').style.display = 'none';
             document.getElementById('main-panel').style.display = 'block';
         }
-        // Şifreyi sıfırlayan güvenli çıkış sistemi
+
         function logout() {
             document.getElementById('login-user').value = "";
             document.getElementById('login-pass').value = "";
             document.getElementById('main-panel').style.display = 'none';
             document.getElementById('login-panel').style.display = 'block';
         }
+
         function toggleCategory(id) {
             const sect = document.getElementById(id);
             sect.style.display = (sect.style.display === "block") ? "none" : "block";
         }
+
+        function goToBetaBranch() {
+            const pass = prompt("Lütfen Geliştirici 4 Haneli Sürüm 1.2 BETA Şifresini Girin:");
+            if (pass === '1836') {
+                // Şifre doğruysa beta dalının linkine yönlendir
+                window.location.href = "https://ensarseri5-svg.github.io/Panel/?branch=beta_active";
+            } else {
+                alert("Hatalı Şifre! Ana sisteme yönlendiriliyorsunuz.");
+                window.location.href = "https://ensarseri5-svg.github.io/Panel/";
+            }
+        }
+
         function addComment() {
             const input = document.getElementById('comment-input');
             if(input.value.trim() !== "") {
