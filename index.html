@@ -72,7 +72,8 @@
             <button onclick="addComment()" style="width:21%; padding:8px; background:var(--neon-blue); border:none; border-radius:5px; font-weight:bold; cursor:pointer;">OK</button>
         </div>
 
-        <a href="https://kullanici_adin.github.io/ensar-gamer-zone/beta" class="btn beta-btn">🚀 SÜRÜM 1.2 BETA DALINA GEÇ</a>
+        <!-- NOT: Buradaki linki kendi GitHub sitene göre güncelleyebilirsin -->
+        <a href="https://ensarseri5-svg.github.io/Panel/?branch=beta" class="btn beta-btn">🚀 SÜRÜM 1.2 BETA DALINA GEÇ</a>
     </div>
 
     <script>
@@ -86,7 +87,10 @@
             document.getElementById('login-panel').style.display = 'none';
             document.getElementById('main-panel').style.display = 'block';
         }
+        // Şifreyi sıfırlayan güvenli çıkış sistemi
         function logout() {
+            document.getElementById('login-user').value = "";
+            document.getElementById('login-pass').value = "";
             document.getElementById('main-panel').style.display = 'none';
             document.getElementById('login-panel').style.display = 'block';
         }
