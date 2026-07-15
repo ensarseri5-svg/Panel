@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ensar Zone - Premium Dashboard (v1.3 Ultimate)</title>
+    <title>Ensar Zone - Modern Dashboard (v1.5.1)</title>
     <style>
         :root { 
-            --neon-blue: #00f0ff; 
-            --cyber-purple: #bd00ff;
-            --dark-bg: #080810; 
-            --panel-bg: rgba(22, 22, 37, 0.8);
-            --card-bg: rgba(30, 30, 50, 0.5); 
+            --accent-color: #6366f1; 
+            --accent-gradient: linear-gradient(135deg, #4f46e5, #06b6d4);
+            --bg-color: #0b0f19;
+            --panel-bg: rgba(22, 28, 45, 0.6);
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
         }
 
         body { 
-            background: var(--dark-bg); 
-            background-image: radial-gradient(circle at 50% 50%, #15102a 0%, var(--dark-bg) 80%);
-            color: #fff; 
-            font-family: 'Segoe UI', sans-serif; 
+            background: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+            color: var(--text-main); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex; 
             justify-content: center; 
             align-items: center;
@@ -29,238 +34,344 @@
 
         .panel { 
             width: 100%; 
-            max-width: 520px; 
+            max-width: 480px; 
             background: var(--panel-bg); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             padding: 30px; 
             border-radius: 24px; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            position: relative; 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.1);
-        }
-
-        h1 { 
-            text-align: center; 
-            text-transform: uppercase; 
-            margin-top: 0;
-            margin-bottom: 20px; 
-            font-size: 26px; 
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
         }
 
         .version-tag {
             position: absolute;
-            top: 15px;
-            left: 20px;
+            top: 20px;
+            left: 25px;
             font-size: 11px;
-            color: var(--neon-blue);
-            opacity: 0.8;
-            font-weight: bold;
-            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 100px;
+            border: 1px solid var(--border-color);
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .modern-logo {
+            width: 60px;
+            height: 60px;
+        }
+
+        h1 { 
+            text-align: center; 
+            margin-top: 0;
+            margin-bottom: 30px; 
+            font-size: 24px; 
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
         }
 
         .login-input { 
             width: 100%; 
-            padding: 14px; 
-            background: rgba(0, 0, 0, 0.4); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 14px 16px; 
+            background: rgba(15, 23, 42, 0.6); 
+            border: 1px solid var(--border-color); 
             color: #fff; 
             border-radius: 12px; 
-            margin-bottom: 15px; 
             box-sizing: border-box; 
-            text-align: center; 
-            font-size: 15px;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            margin-bottom: 14px;
+            transition: all 0.2s ease;
         }
-        .login-input:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); }
+        .login-input:focus { 
+            outline: none; 
+            border-color: var(--accent-color); 
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
 
-        .patch-notes-box {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(189, 0, 255, 0.2);
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 25px;
-            font-size: 11px;
-            line-height: 1.5;
-            max-height: 130px;
-            overflow-y: auto;
-            color: #d1c4e9;
+        .login-status {
+            text-align: center;
+            font-size: 13px;
+            margin-top: 10px;
+            min-height: 20px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .patch-notes-box h3 { margin: 0 0 10px 0; color: var(--cyber-purple); font-size: 12px; text-transform: uppercase; border-bottom: 1px solid rgba(189, 0, 255, 0.2); padding-bottom: 5px; }
-        .patch-item { margin-bottom: 8px; padding-left: 12px; position: relative; }
-        .patch-item::before { content: "⚡"; position: absolute; left: 0; top: 0; }
+        .status-error { color: #f87171; }
+
+        /* Spinner Animasyonu */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top-color: #34d399;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
         .btn { 
-            padding: 12px; color: #000; font-weight: bold; border-radius: 10px; border: none; width: 100%; 
-            margin-bottom: 10px; cursor: pointer; text-align: center; font-size: 13px; text-transform: uppercase;
-            letter-spacing: 1px; text-decoration: none; display: block; box-sizing: border-box; transition: all 0.3s ease; 
+            padding: 14px; 
+            color: #fff; 
+            font-weight: 600; 
+            border-radius: 12px; 
+            border: none; 
+            width: 100%; 
+            margin-bottom: 10px; 
+            cursor: pointer; 
+            text-align: center; 
+            font-size: 14px;
+            display: block; 
+            box-sizing: border-box; 
+            background: var(--accent-gradient);
+            transition: all 0.2s ease; 
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 240, 255, 0.4); filter: brightness(1.2); }
+        .btn:hover { 
+            opacity: 0.95;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
 
-        .user-badge { background: rgba(0, 0, 0, 0.3); padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.05); display: inline-block; margin-bottom: 15px; }
-        .logout-btn { background: rgba(255, 68, 68, 0.15); color: #ff5555; padding: 6px 12px; font-size: 11px; font-weight: bold; border-radius: 20px; border: 1px solid rgba(255, 85, 85, 0.3); cursor: pointer; position: absolute; top: 25px; right: 30px; }
+        .patch-notes-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 25px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+        .patch-notes-box h3 { margin: 0 0 8px 0; color: var(--text-main); font-size: 14px; font-weight: 600; }
+        .patch-item { margin-bottom: 4px; display: flex; gap: 6px; }
 
-        /* YENİ ANA MENÜ SEKME SİSTEMİ (v1.3 TEMA DEĞİŞİMİ) */
+        .user-badge { background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 100px; font-size: 13px; color: var(--text-muted); border: 1px solid var(--border-color); display: inline-block; margin-bottom: 20px; }
+        .logout-btn { background: transparent; color: #f87171; padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: 8px; border: 1px solid rgba(248, 113, 113, 0.2); cursor: pointer; position: absolute; top: 20px; right: 25px; transition: all 0.2s; }
+        .logout-btn:hover { background: rgba(248, 113, 113, 0.1); }
+
         .main-nav {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-            margin-bottom: 20px;
-            background: rgba(0,0,0,0.4);
-            padding: 6px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
+            gap: 6px;
+            margin-bottom: 25px;
+            background: rgba(0,0,0,0.2);
+            padding: 4px;
+            border-radius: 10px;
         }
         .nav-btn {
-            padding: 10px 4px;
+            padding: 10px 2px;
             background: transparent;
             border: none;
-            color: #888;
-            font-size: 10px;
-            font-weight: bold;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
             cursor: pointer;
             border-radius: 8px;
             text-align: center;
             transition: all 0.2s ease;
         }
         .nav-btn.active {
-            background: linear-gradient(135deg, var(--neon-blue), var(--cyber-purple));
-            color: #000;
-            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
         }
 
-        /* SEKME İÇERİK KONTROLÜ */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* XP & RÜTBE SİSTEMİ */
-        .rank-section { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 14px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .rank-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; margin-bottom: 6px; }
-        .xp-bg { background: rgba(255,255,255,0.1); width: 100%; height: 8px; border-radius: 4px; overflow: hidden; }
-        .xp-bar { background: linear-gradient(90deg, var(--neon-blue), var(--cyber-purple)); width: 0%; height: 100%; transition: width 0.5s ease; }
+        /* MODERN ROADMAP */
+        .roadmap-container {
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .roadmap-phase {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 20px;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .roadmap-phase::before {
+            content: "";
+            position: absolute;
+            left: -4px;
+            top: 5px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #475569;
+        }
+        .roadmap-phase.current { border-left-color: var(--accent-color); }
+        .roadmap-phase.current::before { background: var(--accent-color); }
+        .phase-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .phase-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
 
-        /* ALT SEKMELER (GÖREV - BAŞARIM İÇİN) */
-        .sub-nav { display: flex; gap: 8px; margin-bottom: 15px; }
-        .sub-btn { flex: 1; padding: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; }
-        .sub-btn.active { background: var(--cyber-purple); border-color: var(--cyber-purple); }
+        /* MODERN KARTLAR */
+        .game-card { 
+            background: var(--card-bg); 
+            padding: 14px 16px; 
+            border-radius: 14px; 
+            margin-bottom: 10px; 
+            border: 1px solid var(--border-color);
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .game-card:hover {
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .game-card h3 { margin: 0; font-size: 14px; font-weight: 500; }
+        .game-card .btn { width: auto; padding: 8px 16px; margin-bottom: 0; font-size: 12px; border-radius: 8px; }
+        .date-text { font-size: 12px; color: var(--text-muted); font-weight: 500; }
 
-        .system-list { display: none; max-height: 220px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
-        .system-list.active { display: block; }
+        .ai-section, .comment-section { background: var(--card-bg); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); }
+        .ai-qa-btn { background: rgba(0, 0, 0, 0.15); color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 13px; text-align: left; width: 100%; margin-bottom: 8px; cursor: pointer; transition: background 0.2s; }
+        .ai-qa-btn:hover { background: rgba(255,255,255,0.05); }
+        #ai-box { background: rgba(0, 0, 0, 0.2); padding: 14px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: var(--text-muted); display: none; line-height: 1.5; border: 1px solid var(--border-color); }
 
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 6px; font-size: 11px; border-left: 3px solid #555; }
-        .list-item.done { border-left-color: #00ff66; background: rgba(0,255,102,0.05); }
-        .list-item.unlocked { border-left-color: #ffaa00; background: rgba(255,170,0,0.05); }
-        .item-btn { padding: 4px 8px; background: var(--neon-blue); border: none; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer; color: #000; }
-        .item-btn:disabled { background: #444; color: #aaa; cursor: not-allowed; }
-
-        .category-panel { background: rgba(0, 0, 0, 0.2); padding: 15px; border-radius: 16px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .game-card { background: var(--card-bg); padding: 12px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--neon-blue); display: flex; justify-content: space-between; align-items: center; }
-        .game-card h3 { margin: 0; font-size: 14px; }
-        .game-card .btn { width: auto; padding: 6px 15px; margin-bottom: 0; font-size: 11px; }
-
-        .ai-section { background: var(--card-bg); padding: 15px; border-radius: 16px; border-top: 3px solid var(--cyber-purple); }
-        .ai-qa-btn { background: rgba(189, 0, 255, 0.05); color: #e9bcff; border: 1px solid rgba(189, 0, 255, 0.2); padding: 8px; border-radius: 8px; font-size: 11px; text-align: left; width: 100%; margin-bottom: 6px; cursor: pointer; }
-        #ai-box { background: rgba(0, 0, 0, 0.4); padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 12px; display: none; }
-
-        .comment-section { background: var(--card-bg); padding: 15px; border-radius: 16px; border-top: 3px solid var(--neon-blue); }
-        .comment-box { background: rgba(0, 0, 0, 0.3); max-height: 180px; overflow-y: auto; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 12px; }
-        .comment-msg { margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.05); word-break: break-word; }
+        .comment-box { background: rgba(0, 0, 0, 0.15); max-height: 180px; overflow-y: auto; padding: 14px; border-radius: 10px; margin-bottom: 12px; font-size: 13px; border: 1px solid var(--border-color); }
+        .comment-msg { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); }
         
         .comment-controls { display: flex; gap: 8px; }
-        .comment-controls input { flex: 1; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; font-size: 12px; }
-        .comment-controls button { padding: 10px 16px; background: var(--neon-blue); border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: #000; }
+        .comment-controls input { flex: 1; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); color: #fff; border-radius: 10px; font-size: 13px; }
+        .comment-controls input:focus { outline: none; border-color: var(--accent-color); }
+        .comment-controls button { padding: 12px 18px; background: var(--accent-gradient); border: none; border-radius: 10px; font-weight: 600; cursor: pointer; color: #fff; font-size: 13px; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 100px; }
     </style>
 </head>
 <body>
 
-    <!-- PANEL 1: GİRİŞ EKRANI -->
     <div class="panel" id="login-panel">
-        <div class="version-tag">v1.3 ULTIMATE</div>
-        <h1 style="color: var(--neon-blue); margin-bottom: 15px;">Giriş Kontrol</h1>
+        <div class="version-tag">Sürüm 1.5.1</div>
+        
+        <div class="logo-container">
+            <svg class="modern-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="40" fill="none" stroke="url(#modernGrad)" stroke-width="6"/>
+                <path d="M35,40 H65 M35,50 H55 M35,60 H65" stroke="url(#modernGrad)" stroke-width="6" stroke-linecap="round"/>
+                <defs>
+                    <linearGradient id="modernGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#4f46e5" />
+                        <stop offset="100%" stop-color="#06b6d4" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <h1>Giriş Yapın</h1>
+        
         <input type="text" id="login-user" class="login-input" placeholder="Kullanıcı Adı">
-        <input type="password" id="login-pass" class="login-input" placeholder="Şifre">
-        <button class="btn" style="background: linear-gradient(90deg, #00f0ff, #00a8ff);" onclick="handleSystemLogin()">Sisteme Doğrula</button>
+        <input type="password" id="login-pass" class="login-input" placeholder="Erişim Şifresi">
+        
+        <div class="login-status" id="login-status-text">
+            <div class="spinner" id="login-spinner"></div>
+            <span id="status-msg"></span>
+        </div>
+        
+        <button class="btn" onclick="handleSystemLogin()">Sistemi Başlat</button>
 
         <div class="patch-notes-box">
-            <h3>📂 v1.3 Sekmeli Arayüz Güncellemesi</h3>
-            <div class="patch-item"><span style="color:var(--neon-blue)">[UI]</span> <b>Sekmeli Dashboard Sistemi:</b> Tüm ana bileşenler (Oyunlar, AI, Duvar, Başarımlar) birbirinden bağımsız 4 ayrı ana sekmeye ayrıldı.</div>
-            <div class="patch-item"><span style="color:#ffaa00">[NEW]</span> 20 Büyük Görev ve 10 Açılabilir Başarım entegrasyonu tamamlandı.</div>
+            <h3>✨ Güncelleme Notları (v1.5.1)</h3>
+            <div class="patch-item"><span>•</span> Modern ve minimalist arayüze geçiş yapıldı.</div>
+            <div class="patch-item"><span>•</span> Eski kod yapıları ve ağır görsel efektler temizlendi.</div>
+            <div class="patch-item"><span>•</span> Yol haritası daha sade 5 aşamaya entegre edildi.</div>
         </div>
     </div>
 
-    <!-- PANEL 2: MAIN PANEL -->
     <div class="panel" id="main-panel" style="display:none;">
-        <div class="version-tag">v1.3 ULTIMATE</div>
-        <button class="logout-btn" onclick="location.reload()">❌ Çıkış</button>
+        <div class="version-tag">v1.5.1</div>
+        <button class="logout-btn" onclick="location.reload()">Çıkış Yap</button>
         
-        <div class="user-badge" id="user-display">Oturum: ...</div>
-        <h1 id="title" style="color: var(--neon-blue); text-align: left; margin-bottom: 15px;">Ensar Zone</h1>
+        <h1 id="title" style="text-align: left; margin-bottom: 5px; margin-top: 20px; font-size: 22px;">Ensar Zone</h1>
+        <div class="user-badge" id="user-display">Kullanıcı: ...</div>
 
-        <!-- GENEL XP VE RÜTBE PANELİ (SABİT KALIR) -->
-        <div class="rank-section">
-            <div class="rank-header">
-                <span id="rank-title" style="color: var(--neon-blue);">Rütbe: Çaylak Hacker (Lv 1)</span>
-                <span id="xp-text">0 / 100 XP</span>
-            </div>
-            <div class="xp-bg"><div class="xp-bar" id="xp-bar"></div></div>
-        </div>
-
-        <!-- ANA SEKME MENÜSÜ -->
         <div class="main-nav">
-            <button class="nav-btn active" id="m-btn-games" onclick="switchMainTab('games')">🎮 OYUNLAR</button>
-            <button class="nav-btn" id="m-btn-system" onclick="switchMainTab('system')">🎯 GÖREVLER</button>
-            <button class="nav-btn" id="m-btn-ai" onclick="switchMainTab('ai')">🤖 YAPAY ZEKA</button>
-            <button class="nav-btn" id="m-btn-chat" onclick="switchMainTab('chat')">💬 DUVAR</button>
+            <button class="nav-btn active" id="m-btn-games" onclick="switchMainTab('games')">Arşiv</button>
+            <button class="nav-btn" id="m-btn-roadmap" onclick="switchMainTab('roadmap')">Hedefler</button>
+            <button class="nav-btn" id="m-btn-ai" onclick="switchMainTab('ai')">Asistan</button>
+            <button class="nav-btn" id="m-btn-chat" onclick="switchMainTab('chat')">Duvar</button>
         </div>
 
-        <!-- SEKME 1: OYUN ARŞİVLERİ -->
         <div id="main-tab-games" class="tab-content active">
-            <div class="category-panel" style="display:block;">
-                <div style="color: var(--cyber-purple); font-size:14px; font-weight:bold; margin-bottom:10px;">📱 MOBİL SEKTÖRÜ</div>
-                <div class="game-card"><h3>Null's Brawl</h3><button class="btn" style="background:var(--neon-blue);" onclick="trackGameDownload('Null\'s Brawl')">İNDİR</button></div>
-                <div class="game-card"><h3>Car Parking</h3><button class="btn" style="background:var(--neon-blue);" onclick="trackGameDownload('Car Parking')">İNDİR</button></div>
-                <div class="game-card"><h3>Minecraft</h3><button class="btn" style="background:var(--neon-blue);" onclick="trackGameDownload('Minecraft')">İNDİR</button></div>
-                <div class="game-card"><h3>Roblox</h3><button class="btn" style="background:var(--neon-blue);" onclick="trackGameDownload('Roblox')">İNDİR</button></div>
-                
-                <div style="color: var(--neon-blue); font-size:14px; font-weight:bold; margin:20px 0 10px 0;">💻 PC SEKTÖRÜ</div>
-                <div class="game-card"><h3>Forza Horizon 6</h3><button class="btn" style="background:var(--neon-blue);" onclick="trackGameDownload('Forza Horizon 6')">İNDİR</button></div>
-                <div class="game-card" style="border-left-color: #ff9900;"><h3>Age of History 3</h3><span class="date-text">⏳ YAKINDA...</span></div>
+            <div style="font-size:13px; color:var(--text-muted); font-weight:600; margin-bottom:12px;">Aktif İndirme Havuzu</div>
+            
+            <div class="game-card"><h3>Null's Brawl</h3><button class="btn" onclick="window.open('https://dnull.xyz/latest_bs', '_blank')">İndir</button></div>
+            <div class="game-card"><h3>Minecraft</h3><button class="btn" onclick="window.open('https://cloud.mail.ru/public/KbyR/tPA1fH7Tc', '_blank')">İndir</button></div>
+            <div class="game-card"><h3>Roblox</h3><button class="btn" onclick="window.open('https://www.apkmirror.com/apk/roblox-corporation/roblox/roblox-2-724-735-release/', '_blank')">İndir</button></div>
+            <div class="game-card"><h3>Bus Simulator Ultimate</h3><button class="btn" onclick="window.open('https://dl.gamedva.us/Game/Bus-Simulator--Ultimate-v2.2.8-mod-GameDVA.com.apk', '_blank')">İndir</button></div>
+            <div class="game-card"><h3>Forza Horizon 6</h3><button class="btn" onclick="window.open('https://gofile.io/d/WfNPB3', '_blank')">İndir</button></div>
+            
+            <div style="font-size:13px; color:var(--text-muted); font-weight:600; margin:20px 0 12px 0;">Bekleme Listesindekiler</div>
+            <div class="game-card"><h3>Car Parking Multiplayer</h3><span class="date-text">Hazırlanıyor</span></div>
+            <div class="game-card"><h3>Subway Surfers (Mod)</h3><span class="date-text">Hazırlanıyor</span></div>
+            <div class="game-card"><h3>Age of History 2</h3><span class="date-text">Hazırlanıyor</span></div>
+            <div class="game-card"><h3>GTA 5</h3><span class="date-text">Hazırlanıyor</span></div>
+        </div>
+
+        <div id="main-tab-roadmap" class="tab-content">
+            <div class="roadmap-container">
+                <div class="roadmap-phase current">
+                    <div class="phase-title"><span>Aşama 1: Tasarım Devrimi</span> <span style="color:var(--accent-color);">[Aktif]</span></div>
+                    <div class="phase-desc">Arayüzün tamamen modern, sade ve kullanıcı dostu yeni nesil tasarıma taşınması süreci.</div>
+                </div>
+                <div class="roadmap-phase">
+                    <div class="phase-title"><span>Aşama 2: Altyapı Güçlendirme</span></div>
+                    <div class="phase-desc">Sistem veri akış hızının artırılması ve yerel depolama özelliklerinin optimize edilmesi.</div>
+                </div>
+                <div class="roadmap-phase">
+                    <div class="phase-title"><span>Aşama 3: Akıllı Asistan Sürümü</span></div>
+                    <div class="phase-desc">Yapay zeka asistan modülünün yanıt havuzunun ve cevaplama yeteneklerinin genişletilmesi.</div>
+                </div>
+                <div class="roadmap-phase">
+                    <div class="phase-title"><span>Aşama 4: Yeni Link Dağıtımı</span></div>
+                    <div class="phase-desc">Bekleme listesinde bulunan GTA 5 ve Car Parking gibi büyük yapımların indirme kanallarının eklenmesi.</div>
+                </div>
+                <div class="roadmap-phase">
+                    <div class="phase-title"><span>Aşama 5: Tam Koruma Modu</span></div>
+                    <div class="phase-desc">Sitenin dış tehditlere karşı şifrelenerek tamamen güvenli bir kişisel bulut haline getirilmesi.</div>
+                </div>
             </div>
         </div>
 
-        <!-- SEKME 2: GÖREVLER VE BAŞARIMLAR (İSTEDİĞİN AYRI SEKME) -->
-        <div id="main-tab-system" class="tab-content">
-            <div class="sub-nav">
-                <button class="sub-btn active" id="sub-btn-q" onclick="switchSubTab('q')">🎯 GÖREVLER (20)</button>
-                <button class="sub-btn" id="sub-btn-a" onclick="switchSubTab('a')">🏆 BAŞARIMLAR (10)</button>
-            </div>
-            <div id="quest-list" class="system-list active"></div>
-            <div id="achieve-list" class="system-list"></div>
-        </div>
-
-        <!-- SEKME 3: YAPAY ZEKA -->
         <div id="main-tab-ai" class="tab-content">
             <div class="ai-section">
-                <h3 style="margin-top:0; color:var(--cyber-purple); font-size: 14px; margin-bottom:10px;">🤖 Siber Asistan</h3>
-                <button class="ai-qa-btn" onclick="askAI(1)">❓ Sitenin genel özellikleri nelerdir?</button>
-                <button class="ai-qa-btn" onclick="askAI(2)">❓ Bu korumalı giriş sistemi nasıl çalışır?</button>
-                <button class="ai-qa-btn" onclick="askAI(3)">❓ Kurucu Ensar kimdir?</button>
-                <button class="ai-qa-btn" onclick="askAI(4)">❓ Sitenin gelecek planları nelerdir?</button>
+                <button class="ai-qa-btn" onclick="askAI(1)">Sitenin v1.5.1 özellikleri nelerdir?</button>
+                <button class="ai-qa-btn" onclick="askAI(2)">Görev paneli neden kaldırıldı?</button>
+                <button class="ai-qa-btn" onclick="askAI(3)">Kurucu Ensar kimdir?</button>
+                <button class="ai-qa-btn" onclick="askAI(4)">Aktif hedef aşaması nedir?</button>
                 <div id="ai-box"></div>
             </div>
         </div>
 
-        <!-- SEKME 4: CANLI ZİYARETÇİ DUVARI -->
         <div id="main-tab-chat" class="tab-content">
             <div class="comment-section">
-                <h3 style="margin-top:0; color:var(--neon-blue); font-size:14px; margin-bottom:10px;">💬 Canlı Akış Duvarı</h3>
                 <div class="comment-box" id="comments"></div>
                 <div class="comment-controls">
-                    <input type="text" id="comment-input" placeholder="Mesajınızı yazın..." onkeypress="if(event.key==='Enter') addComment()">
-                    <button onclick="addComment()">GÖNDER</button>
+                    <input type="text" id="comment-input" placeholder="Bir mesaj yazın..." onkeypress="if(event.key==='Enter') addComment()">
+                    <button onclick="addComment()">Gönder</button>
                 </div>
             </div>
         </div>
@@ -269,196 +380,73 @@
 
     <script>
         let currentUser = "";
-        let playerStats = { xp: 0, level: 1, completedQuests: [], unlockedAchievements: [], totalComments: 0, aiQuestions: 0, gameDownloads: 0 };
-
-        const quests = [
-            { id: 1, text: "Siber Dünyaya Adım At (Giriş Yap)", xp: 20, type: "auto" },
-            { id: 2, text: "Duvara İlk Selamını Bırak", xp: 30, type: "action" },
-            { id: 3, text: "Yapay Zekaya Kurucuyu Sor", xp: 25, type: "action" },
-            { id: 4, text: "Oyunlar Sekmesini İncele", xp: 15, type: "auto" },
-            { id: 5, text: "Görevler Modülünü Çöz", xp: 15, type: "auto" },
-            { id: 6, text: "Toplam 3 Mesaj Gönder", xp: 40, type: "action" },
-            { id: 7, text: "AI ile 3 Kez Konuş", xp: 35, type: "action" },
-            { id: 8, text: "Herhangi Bir Oyun İndir", xp: 30, type: "action" },
-            { id: 9, text: "Null's Brawl Güvenliğini Denetle", xp: 20, type: "action" },
-            { id: 10, text: "Sistemden Güvenli Çıkış Yapmayı Dene", xp: 10, type: "action" },
-            { id: 11, text: "Duvara Destek Mesajı Yaz", xp: 25, type: "action" },
-            { id: 12, text: "Yapay Zekadan Planları Öğren", xp: 20, type: "action" },
-            { id: 13, text: "Minecraft Mobil İndir", xp: 30, type: "action" },
-            { id: 14, text: "Forza Horizon 6 Linkini Kontrol Et", xp: 40, type: "action" },
-            { id: 15, text: "Canlı Duvarı Aktif Tut", xp: 50, type: "action" },
-            { id: 16, text: "AI Sitem Özellikleri Sorusunu Sor", xp: 20, type: "action" },
-            { id: 17, text: "Giriş Güvenliği Sorusunu Çöz", xp: 20, type: "action" },
-            { id: 18, text: "Roblox Güncel Sürümünü İncele", xp: 25, type: "action" },
-            { id: 19, text: "Car Parking Arşivine Bak", xp: 25, type: "action" },
-            { id: 20, text: "v1.3 Sekmeli Kararlılık Testi", xp: 60, type: "click", target: "title" }
-        ];
-
-        const achievements = [
-            { id: 1, name: "Siber Çaylak", desc: "Sisteme ilk girişi başarıyla tamamla." },
-            { id: 2, name: "Yazar Kasa", desc: "Ziyaretçi duvarına ilk yorumunu yaz." },
-            { id: 3, name: "Meraklı Zihin", desc: "Yapay zekaya ilk soruyu sor." },
-            { id: 4, name: "Veri Avcısı", desc: "İlk oyun indirme komutunu tetikle." },
-            { id: 5, name: "Spam Canavarı", desc: "Ziyaretçi duvarına 5 yorum bırak." },
-            { id: 6, name: "Bilgi Küpü", desc: "Yapay zekanın tüm sorularını tüket." },
-            { id: 7, name: "Arayüz Kaşifi", desc: "Paneller arası tam geçiş sağla." },
-            { id: 8, name: "Ensar Fanatik", desc: "AI panelinden Kurucu Ensar kimdir sorusunu tetikle." },
-            { id: 9, name: "Rütbe Atlayan", desc: "Sistemde 2. Seviyeye ulaş." },
-            { id: 10, name: "Siber Efsane", desc: "Toplamda 300 XP barajını aş." }
-        ];
-
-        if(localStorage.getItem('ensar_stats')) {
-            playerStats = JSON.parse(localStorage.getItem('ensar_stats'));
-        }
-
         let localComments = JSON.parse(localStorage.getItem('ensar_zone_msg')) || [
-            { isim: "Sistem", yorum: "Ensar Zone v1.3 Canlı Duvarı Aktif!" }
+            { isim: "SİSTEM", yorum: "Ensar Zone v1.5.1 arayüz güncellemesi başarıyla yüklendi." }
         ];
 
         function handleSystemLogin() {
             const user = document.getElementById('login-user').value.trim();
             const pass = document.getElementById('login-pass').value.trim();
+            const statusMsg = document.getElementById('status-msg');
+            const spinner = document.getElementById('login-spinner');
+            const statusBox = document.getElementById('login-status-text');
 
-            if (user === "" || pass === "") { alert("Lütfen tüm alanları doldurun!"); return; }
+            if (user === "" || pass === "") { 
+                statusBox.className = "login-status status-error";
+                spinner.style.display = "none";
+                statusMsg.innerText = "Lütfen tüm alanları doldurun."; 
+                return; 
+            }
 
-            if (user === "En sar") {
-                if (pass === "1453") { currentUser = "Kurucu Ensar 👑"; } 
-                else { alert("Hatalı Kurucu Şifresi!"); return; }
-            } else { currentUser = user; }
+            statusBox.className = "login-status";
+            spinner.style.display = "inline-block";
+            statusMsg.innerText = "Giriş yapılıyor, lütfen bekleyin...";
 
-            document.getElementById('user-display').innerText = "Oturum: " + currentUser;
-            document.getElementById('login-panel').style.display = 'none';
-            document.getElementById('main-panel').style.display = 'block';
-            
-            completeQuest(1);
-            unlockAchievement(1);
-            
-            updateUI();
-            loadComments();
-            setInterval(loadComments, 3000);
+            setTimeout(() => {
+                if (user === "En sar") {
+                    if (pass === "1453") { 
+                        currentUser = "Ensar 👑"; 
+                    } else { 
+                        statusBox.className = "login-status status-error";
+                        spinner.style.display = "none";
+                        statusMsg.innerText = "Hatalı şifre girdiniz."; 
+                        return; 
+                    }
+                } else { 
+                    currentUser = user; 
+                }
+
+                statusBox.style.color = "#34d399";
+                spinner.style.display = "none";
+                statusMsg.innerText = "Başarılı! Panele yönlendiriliyorsunuz...";
+
+                setTimeout(() => {
+                    document.getElementById('user-display').innerText = "Kullanıcı: " + currentUser;
+                    document.getElementById('login-panel').style.display = 'none';
+                    document.getElementById('main-panel').style.display = 'block';
+                    loadComments();
+                    setInterval(loadComments, 3000);
+                }, 1000); // Bekleme süresi 1 saniyeye indirildi.
+
+            }, 800);
         }
 
-        /* ANA SEKME GEÇİŞ SİSTEMİ */
         function switchMainTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
 
             document.getElementById(`main-tab-${tabId}`).classList.add('active');
-            
-            if(tabId === 'games') { document.getElementById('m-btn-games').classList.add('active'); completeQuest(4); }
-            if(tabId === 'system') { document.getElementById('m-btn-system').classList.add('active'); completeQuest(5); unlockAchievement(7); }
-            if(tabId === 'ai') document.getElementById('m-btn-ai').classList.add('active');
-            if(tabId === 'chat') document.getElementById('m-btn-chat').classList.add('active');
-        }
-
-        /* GÖREV - BAŞARIM ALT SEKME GEÇİŞİ */
-        function switchSubTab(type) {
-            document.getElementById('sub-btn-q').classList.remove('active');
-            document.getElementById('sub-btn-a').classList.remove('active');
-            document.getElementById('quest-list').classList.remove('active');
-            document.getElementById('achieve-list').classList.remove('active');
-
-            if(type === 'q') {
-                document.getElementById('sub-btn-q').classList.add('active');
-                document.getElementById('quest-list').classList.add('active');
-            } else {
-                document.getElementById('sub-btn-a').classList.add('active');
-                document.getElementById('achieve-list').classList.add('active');
-            }
-        }
-
-        function updateUI() {
-            let rankName = "Çaylak Hacker";
-            if(playerStats.level >= 3) rankName = "Siber Savaşçı";
-            if(playerStats.level >= 5) rankName = "Dijital Hayalet";
-            if(currentUser.includes('👑')) rankName = "BAŞ MİMAR / KURUCU";
-
-            document.getElementById('rank-title').innerText = `Rütbe: ${rankName} (Lv ${playerStats.level})`;
-            document.getElementById('xp-text').innerText = `${playerStats.xp} / ${playerStats.level * 100} XP`;
-            
-            let percent = (playerStats.xp / (playerStats.level * 100)) * 100;
-            document.getElementById('xp-bar').style.width = `${percent}%`;
-
-            renderQuests();
-            renderAchievements();
-            localStorage.setItem('ensar_stats', JSON.stringify(playerStats));
-        }
-
-        function renderQuests() {
-            const container = document.getElementById('quest-list');
-            container.innerHTML = "";
-            quests.forEach(q => {
-                const isDone = playerStats.completedQuests.includes(q.id);
-                container.innerHTML += `
-                    <div class="list-item ${isDone ? 'done' : ''}">
-                        <span>${q.text} <b>(+${q.xp} XP)</b></span>
-                        <button class="item-btn" ${isDone ? 'disabled' : ''} onclick="triggerQuestClick(${q.id})">${isDone ? 'YAPILDI' : 'YAP'}</button>
-                    </div>`;
-            });
-        }
-
-        function renderAchievements() {
-            const container = document.getElementById('achieve-list');
-            container.innerHTML = "";
-            achievements.forEach(a => {
-                const isUnlocked = playerStats.unlockedAchievements.includes(a.id);
-                container.innerHTML += `
-                    <div class="list-item ${isUnlocked ? 'unlocked' : ''}">
-                        <div><b>${isUnlocked ? '🔓' : '🔒'} ${a.name}</b><br><small style="color:#aaa">${a.desc}</small></div>
-                    </div>`;
-            });
-        }
-
-        function completeQuest(id) {
-            if(!playerStats.completedQuests.includes(id)) {
-                playerStats.completedQuests.push(id);
-                const q = quests.find(x => x.id === id);
-                if(q) { playerStats.xp += q.xp; checkLevelUp(); }
-                updateUI();
-            }
-        }
-
-        function unlockAchievement(id) {
-            if(!playerStats.unlockedAchievements.includes(id)) {
-                playerStats.unlockedAchievements.push(id);
-                updateUI();
-            }
-        }
-
-        function checkLevelUp() {
-            let needed = playerStats.level * 100;
-            if(playerStats.xp >= needed) {
-                playerStats.xp -= needed;
-                playerStats.level++;
-                unlockAchievement(9);
-                alert(`🚀 Seviye Atladın! Yeni Seviyen: ${playerStats.level}`);
-                checkLevelUp();
-            }
-            if(playerStats.level * 100 + playerStats.xp >= 300) { unlockAchievement(10); }
-        }
-
-        function triggerQuestClick(id) {
-            const q = quests.find(x => x.id === id);
-            if(q && q.type === "click") {
-                if(q.target === "title") { alert("Arayüz kararlılık testi başarılı!"); }
-                completeQuest(id);
-            } else { alert("Bu görevi yapmak için paneldeki ilgili sekmeyi kullanmalısın!"); }
+            document.getElementById(`m-btn-${tabId}`).classList.add('active');
         }
 
         function askAI(id) {
             const box = document.getElementById('ai-box');
             box.style.display = 'block';
-            playerStats.aiQuestions++;
 
-            if(id === 1) { box.innerHTML = "🤖 <b>AI:</b> Platform 20 dinamik görev, 10 siber başarım ve gelişmiş rütbe motoruna sahiptir."; completeQuest(16); }
-            else if(id === 2) { box.innerHTML = "🤖 <b>AI:</b> Giriş ekranında kurucu kimliği dışında tüm sızma girişimleri kriptografik olarak engellenir."; completeQuest(17); }
-            else if(id === 3) { box.innerHTML = "🤖 <b>AI:</b> Ensar bu siber ekosistemin tek baş mimarı ve tam yetkili yöneticisidir."; completeQuest(3); unlockAchievement(8); }
-            else if(id === 4) { box.innerHTML = "🤖 <b>AI:</b> Gelecek planlarında harici küresel sunucu ağları ve fütüristik oyun entegrasyonları bulunuyor."; completeQuest(12); }
-
-            if(playerStats.aiQuestions >= 1) unlockAchievement(3);
-            if(playerStats.aiQuestions >= 3) completeQuest(7);
-            if(playerStats.aiQuestions >= 4) unlockAchievement(6);
-            updateUI();
+            if(id === 1) { box.innerHTML = "💡 <b>Asistan:</b> v1.5.1 sürümü göz yormayan modern tasarım dili, minimalist menüleri ve geliştirilmiş performans yapısına sahiptir."; }
+            else if(id === 2) { box.innerHTML = "💡 <b>Asistan:</b> Görev ve başarı alanları sitenin hızlanması ve daha sade bir deneyim sunması amacıyla kaldırılarak temizlenmiştir."; }
+            else if(id === 3) { box.innerHTML = "💡 <b>Asistan:</b> Ensar, bu modern bulut panelinin kurucusu, tam yetkili yöneticisi ve baş geliştiricisidir."; }
+            else if(id === 4) { box.innerHTML = "💡 <b>Asistan:</b> Sistem şu an planlanan hedeflerde 'Aşama 1: Tasarım Devrimi' sürecindedir."; }
         }
 
         function loadComments() {
@@ -466,8 +454,8 @@
             box.innerHTML = "";
             try { localComments = JSON.parse(localStorage.getItem('ensar_zone_msg')) || []; } catch(e){}
             localComments.forEach(msg => {
-                let nameStyle = msg.isim && msg.isim.includes('👑') ? 'color:var(--neon-blue);' : 'color:#aaa;';
-                box.innerHTML += `<div class="comment-msg"><b style="${nameStyle}">${msg.isim}:</b> ${msg.yorum}</div>`;
+                let nameStyle = msg.isim && msg.isim.includes('👑') ? 'color:var(--accent-color); font-weight:600;' : 'color:var(--text-main); font-weight:600;';
+                box.innerHTML += `<div class="comment-msg"><span style="${nameStyle}">${msg.isim}:</span> <span style="color:var(--text-muted);">${msg.yorum}</span></div>`;
             });
             box.scrollTop = box.scrollHeight;
         }
@@ -478,36 +466,9 @@
             if(text !== "") {
                 localComments.push({ isim: currentUser, yorum: text });
                 localStorage.setItem('ensar_zone_msg', JSON.stringify(localComments));
-                
-                playerStats.totalComments++;
-                completeQuest(2);
-                if(playerStats.totalComments >= 3) completeQuest(6);
-                if(playerStats.totalComments >= 5) unlockAchievement(5);
-                if(text.includes("harika") || text.includes("efsane") || text.includes("sağlık")) completeQuest(11);
-
                 input.value = "";
                 loadComments();
-                updateUI();
             }
-        }
-
-        function trackGameDownload(name) {
-            playerStats.gameDownloads++;
-            completeQuest(8);
-            if(name === "Null's Brawl") completeQuest(9);
-            if(name === "Minecraft") completeQuest(13);
-            if(name === "Forza Horizon 6") completeQuest(14);
-            if(name === "Car Parking") completeQuest(19);
-            if(name === "Roblox") completeQuest(18);
-
-            unlockAchievement(4);
-            updateUI();
-
-            if(name === "Null's Brawl") window.open("https://dnull.xyz/latest_bs", "_blank");
-            if(name === "Car Parking") window.open("https://multiplayerparking.com/apk/car-parking-multiplayer-v4.9.9.apk", "_blank");
-            if(name === "Minecraft") window.open("https://cloud.mail.ru/public/KbyR/tPA1fH7Tc", "_blank");
-            if(name === "Roblox") window.open("https://www.apkmirror.com/apk/roblox-corporation/roblox/", "_blank");
-            if(name === "Forza Horizon 6") window.open("https://gofile.io/d/WfNPB3", "_blank");
         }
     </script>
 </body>
