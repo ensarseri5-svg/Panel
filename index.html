@@ -1,475 +1,115 @@
-<!DOCTYPE html>
+<!DOCTYPE1 html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ensar Zone - Modern Dashboard (v1.5.1)</title>
-    <style>
-        :root { 
-            --accent-color: #6366f1; 
-            --accent-gradient: linear-gradient(135deg, #4f46e5, #06b6d4);
-            --bg-color: #0b0f19;
-            --panel-bg: rgba(22, 28, 45, 0.6);
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.08);
-        }
-
-        body { 
-            background: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
-            color: var(--text-main); 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            min-height: 100vh;
-            margin: 0; 
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .panel { 
-            width: 100%; 
-            max-width: 480px; 
-            background: var(--panel-bg); 
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            padding: 30px; 
-            border-radius: 24px; 
-            border: 1px solid var(--border-color); 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            position: relative;
-        }
-
-        .version-tag {
-            position: absolute;
-            top: 20px;
-            left: 25px;
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px 10px;
-            border-radius: 100px;
-            border: 1px solid var(--border-color);
-        }
-
-        .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-        .modern-logo {
-            width: 60px;
-            height: 60px;
-        }
-
-        h1 { 
-            text-align: center; 
-            margin-top: 0;
-            margin-bottom: 30px; 
-            font-size: 24px; 
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
-        }
-
-        .login-input { 
-            width: 100%; 
-            padding: 14px 16px; 
-            background: rgba(15, 23, 42, 0.6); 
-            border: 1px solid var(--border-color); 
-            color: #fff; 
-            border-radius: 12px; 
-            box-sizing: border-box; 
-            font-size: 14px;
-            margin-bottom: 14px;
-            transition: all 0.2s ease;
-        }
-        .login-input:focus { 
-            outline: none; 
-            border-color: var(--accent-color); 
-            background: rgba(15, 23, 42, 0.9);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-        .login-status {
-            text-align: center;
-            font-size: 13px;
-            margin-top: 10px;
-            min-height: 20px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .status-error { color: #f87171; }
-
-        /* Spinner Animasyonu */
-        .spinner {
-            width: 16px;
-            height: 16px;
-            border: 2px solid transparent;
-            border-top-color: #34d399;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: none;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .btn { 
-            padding: 14px; 
-            color: #fff; 
-            font-weight: 600; 
-            border-radius: 12px; 
-            border: none; 
-            width: 100%; 
-            margin-bottom: 10px; 
-            cursor: pointer; 
-            text-align: center; 
-            font-size: 14px;
-            display: block; 
-            box-sizing: border-box; 
-            background: var(--accent-gradient);
-            transition: all 0.2s ease; 
-        }
-        .btn:hover { 
-            opacity: 0.95;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-        }
-
-        .patch-notes-box {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 25px;
-            font-size: 13px;
-            line-height: 1.5;
-            color: var(--text-muted);
-        }
-        .patch-notes-box h3 { margin: 0 0 8px 0; color: var(--text-main); font-size: 14px; font-weight: 600; }
-        .patch-item { margin-bottom: 4px; display: flex; gap: 6px; }
-
-        .user-badge { background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 100px; font-size: 13px; color: var(--text-muted); border: 1px solid var(--border-color); display: inline-block; margin-bottom: 20px; }
-        .logout-btn { background: transparent; color: #f87171; padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: 8px; border: 1px solid rgba(248, 113, 113, 0.2); cursor: pointer; position: absolute; top: 20px; right: 25px; transition: all 0.2s; }
-        .logout-btn:hover { background: rgba(248, 113, 113, 0.1); }
-
-        .main-nav {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
-            margin-bottom: 25px;
-            background: rgba(0,0,0,0.2);
-            padding: 4px;
-            border-radius: 10px;
-        }
-        .nav-btn {
-            padding: 10px 2px;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 8px;
-            text-align: center;
-            transition: all 0.2s ease;
-        }
-        .nav-btn.active {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-main);
-        }
-
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        /* MODERN ROADMAP */
-        .roadmap-container {
-            max-height: 320px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-        .roadmap-phase {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 20px;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .roadmap-phase::before {
-            content: "";
-            position: absolute;
-            left: -4px;
-            top: 5px;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #475569;
-        }
-        .roadmap-phase.current { border-left-color: var(--accent-color); }
-        .roadmap-phase.current::before { background: var(--accent-color); }
-        .phase-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .phase-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
-
-        /* MODERN KARTLAR */
-        .game-card { 
-            background: var(--card-bg); 
-            padding: 14px 16px; 
-            border-radius: 14px; 
-            margin-bottom: 10px; 
-            border: 1px solid var(--border-color);
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            transition: background 0.2s;
-        }
-        .game-card:hover {
-            background: rgba(30, 41, 59, 0.8);
-        }
-        .game-card h3 { margin: 0; font-size: 14px; font-weight: 500; }
-        .game-card .btn { width: auto; padding: 8px 16px; margin-bottom: 0; font-size: 12px; border-radius: 8px; }
-        .date-text { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-
-        .ai-section, .comment-section { background: var(--card-bg); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); }
-        .ai-qa-btn { background: rgba(0, 0, 0, 0.15); color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 13px; text-align: left; width: 100%; margin-bottom: 8px; cursor: pointer; transition: background 0.2s; }
-        .ai-qa-btn:hover { background: rgba(255,255,255,0.05); }
-        #ai-box { background: rgba(0, 0, 0, 0.2); padding: 14px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: var(--text-muted); display: none; line-height: 1.5; border: 1px solid var(--border-color); }
-
-        .comment-box { background: rgba(0, 0, 0, 0.15); max-height: 180px; overflow-y: auto; padding: 14px; border-radius: 10px; margin-bottom: 12px; font-size: 13px; border: 1px solid var(--border-color); }
-        .comment-msg { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); }
-        
-        .comment-controls { display: flex; gap: 8px; }
-        .comment-controls input { flex: 1; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); color: #fff; border-radius: 10px; font-size: 13px; }
-        .comment-controls input:focus { outline: none; border-color: var(--accent-color); }
-        .comment-controls button { padding: 12px 18px; background: var(--accent-gradient); border: none; border-radius: 10px; font-weight: 600; cursor: pointer; color: #fff; font-size: 13px; }
-
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 100px; }
-    </style>
+    <title>OyunRadar - Yeni Oyunlar, Beta Testleri & İncelemeler</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome İkonları İçin -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <div class="panel" id="login-panel">
-        <div class="version-tag">Sürüm 1.5.1</div>
-        
-        <div class="logo-container">
-            <svg class="modern-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="40" fill="none" stroke="url(#modernGrad)" stroke-width="6"/>
-                <path d="M35,40 H65 M35,50 H55 M35,60 H65" stroke="url(#modernGrad)" stroke-width="6" stroke-linecap="round"/>
-                <defs>
-                    <linearGradient id="modernGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#4f46e5" />
-                        <stop offset="100%" stop-color="#06b6d4" />
-                    </linearGradient>
-                </defs>
-            </svg>
+    <!-- ÜST MENÜ (HEADER) -->
+    <header>
+        <div class="logo">
+            <h2>Oyun<span>Radar</span></h2>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Ana Sayfa</a></li>
+                <li><a href="#">PC</a></li>
+                <li><a href="#">Konsol (PS/Xbox)</a></li>
+                <li><a href="#">Mobil</a></li>
+                <li><a href="#" class="beta-btn">Kapalı Beta</a></li>
+                <li><a href="#" class="beta-btn open">Açık Beta</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MANŞET ALANI (HERO SECTION) -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge pc">PC / PS5</span>
+            <h1>Yeni Çıkacak Oyunlar ve Beta Fırsatları</h1>
+            <p>En yeni kapalı beta, açık beta ve güncel oyun duyurularını ilk sen öğren!</p>
+            <a href="#games" class="btn">Oyunları Keşfet</a>
+        </div>
+    </section>
+
+    <!-- KATEGORİ FİLTRELERİ -->
+    <section class="container">
+        <div class="filter-bar">
+            <button class="filter-btn active">Tümü</button>
+            <button class="filter-btn"><i class="fa-solid fa-lock"></i> Kapalı Beta</button>
+            <button class="filter-btn"><i class="fa-solid fa-lock-open"></i> Açık Beta</button>
+            <button class="filter-btn"><i class="fa-desktop"></i> PC</button>
+            <button class="filter-btn"><i class="fa-mobile-screen-button"></i> Mobil</button>
+            <button class="filter-btn"><i class="fa-gamepad"></i> PlayStation</button>
         </div>
 
-        <h1>Giriş Yapın</h1>
-        
-        <input type="text" id="login-user" class="login-input" placeholder="Kullanıcı Adı">
-        <input type="password" id="login-pass" class="login-input" placeholder="Erişim Şifresi">
-        
-        <div class="login-status" id="login-status-text">
-            <div class="spinner" id="login-spinner"></div>
-            <span id="status-msg"></span>
-        </div>
-        
-        <button class="btn" onclick="handleSystemLogin()">Sistemi Başlat</button>
+        <!-- OYUN KARTLARI -->
+        <h2 class="section-title">Son Eklenen Oyunlar & Betalar</h2>
+        <div class="game-grid" id="games">
 
-        <div class="patch-notes-box">
-            <h3>✨ Güncelleme Notları (v1.5.1)</h3>
-            <div class="patch-item"><span>•</span> Modern ve minimalist arayüze geçiş yapıldı.</div>
-            <div class="patch-item"><span>•</span> Eski kod yapıları ve ağır görsel efektler temizlendi.</div>
-            <div class="patch-item"><span>•</span> Yol haritası daha sade 5 aşamaya entegre edildi.</div>
-        </div>
-    </div>
-
-    <div class="panel" id="main-panel" style="display:none;">
-        <div class="version-tag">v1.5.1</div>
-        <button class="logout-btn" onclick="location.reload()">Çıkış Yap</button>
-        
-        <h1 id="title" style="text-align: left; margin-bottom: 5px; margin-top: 20px; font-size: 22px;">Ensar Zone</h1>
-        <div class="user-badge" id="user-display">Kullanıcı: ...</div>
-
-        <div class="main-nav">
-            <button class="nav-btn active" id="m-btn-games" onclick="switchMainTab('games')">Arşiv</button>
-            <button class="nav-btn" id="m-btn-roadmap" onclick="switchMainTab('roadmap')">Hedefler</button>
-            <button class="nav-btn" id="m-btn-ai" onclick="switchMainTab('ai')">Asistan</button>
-            <button class="nav-btn" id="m-btn-chat" onclick="switchMainTab('chat')">Duvar</button>
-        </div>
-
-        <div id="main-tab-games" class="tab-content active">
-            <div style="font-size:13px; color:var(--text-muted); font-weight:600; margin-bottom:12px;">Aktif İndirme Havuzu</div>
-            
-            <div class="game-card"><h3>Null's Brawl</h3><button class="btn" onclick="window.open('https://dnull.xyz/latest_bs', '_blank')">İndir</button></div>
-            <div class="game-card"><h3>Minecraft</h3><button class="btn" onclick="window.open('https://cloud.mail.ru/public/KbyR/tPA1fH7Tc', '_blank')">İndir</button></div>
-            <div class="game-card"><h3>Roblox</h3><button class="btn" onclick="window.open('https://www.apkmirror.com/apk/roblox-corporation/roblox/roblox-2-724-735-release/', '_blank')">İndir</button></div>
-            <div class="game-card"><h3>Bus Simulator Ultimate</h3><button class="btn" onclick="window.open('https://dl.gamedva.us/Game/Bus-Simulator--Ultimate-v2.2.8-mod-GameDVA.com.apk', '_blank')">İndir</button></div>
-            <div class="game-card"><h3>Forza Horizon 6</h3><button class="btn" onclick="window.open('https://gofile.io/d/WfNPB3', '_blank')">İndir</button></div>
-            
-            <div style="font-size:13px; color:var(--text-muted); font-weight:600; margin:20px 0 12px 0;">Bekleme Listesindekiler</div>
-            <div class="game-card"><h3>Car Parking Multiplayer</h3><span class="date-text">Hazırlanıyor</span></div>
-            <div class="game-card"><h3>Subway Surfers (Mod)</h3><span class="date-text">Hazırlanıyor</span></div>
-            <div class="game-card"><h3>Age of History 2</h3><span class="date-text">Hazırlanıyor</span></div>
-            <div class="game-card"><h3>GTA 5</h3><span class="date-text">Hazırlanıyor</span></div>
-        </div>
-
-        <div id="main-tab-roadmap" class="tab-content">
-            <div class="roadmap-container">
-                <div class="roadmap-phase current">
-                    <div class="phase-title"><span>Aşama 1: Tasarım Devrimi</span> <span style="color:var(--accent-color);">[Aktif]</span></div>
-                    <div class="phase-desc">Arayüzün tamamen modern, sade ve kullanıcı dostu yeni nesil tasarıma taşınması süreci.</div>
+            <!-- Kart 1: Kapalı Beta -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://via.placeholder.com/400x225/111/fff?text=Oyun+Gorseli" alt="Oyun">
+                    <span class="tag closed-beta">Kapalı Beta</span>
                 </div>
-                <div class="roadmap-phase">
-                    <div class="phase-title"><span>Aşama 2: Altyapı Güçlendirme</span></div>
-                    <div class="phase-desc">Sistem veri akış hızının artırılması ve yerel depolama özelliklerinin optimize edilmesi.</div>
-                </div>
-                <div class="roadmap-phase">
-                    <div class="phase-title"><span>Aşama 3: Akıllı Asistan Sürümü</span></div>
-                    <div class="phase-desc">Yapay zeka asistan modülünün yanıt havuzunun ve cevaplama yeteneklerinin genişletilmesi.</div>
-                </div>
-                <div class="roadmap-phase">
-                    <div class="phase-title"><span>Aşama 4: Yeni Link Dağıtımı</span></div>
-                    <div class="phase-desc">Bekleme listesinde bulunan GTA 5 ve Car Parking gibi büyük yapımların indirme kanallarının eklenmesi.</div>
-                </div>
-                <div class="roadmap-phase">
-                    <div class="phase-title"><span>Aşama 5: Tam Koruma Modu</span></div>
-                    <div class="phase-desc">Sitenin dış tehditlere karşı şifrelenerek tamamen güvenli bir kişisel bulut haline getirilmesi.</div>
+                <div class="card-body">
+                    <div class="platforms">
+                        <span class="platform-icon"><i class="fa-desktop"></i> PC</span>
+                        <span class="platform-icon"><i class="fa-gamepad"></i> PS5</span>
+                    </div>
+                    <h3>Cyber Warfare Online</h3>
+                    <p>Gelecekte geçen tempolu online FPS oyunu. Sınırlı sayıda oyuncu için kapalı beta başvuruları başladı!</p>
+                    <a href="#" class="read-more">Detaylar & Beta Başvurusu →</a>
                 </div>
             </div>
-        </div>
 
-        <div id="main-tab-ai" class="tab-content">
-            <div class="ai-section">
-                <button class="ai-qa-btn" onclick="askAI(1)">Sitenin v1.5.1 özellikleri nelerdir?</button>
-                <button class="ai-qa-btn" onclick="askAI(2)">Görev paneli neden kaldırıldı?</button>
-                <button class="ai-qa-btn" onclick="askAI(3)">Kurucu Ensar kimdir?</button>
-                <button class="ai-qa-btn" onclick="askAI(4)">Aktif hedef aşaması nedir?</button>
-                <div id="ai-box"></div>
-            </div>
-        </div>
-
-        <div id="main-tab-chat" class="tab-content">
-            <div class="comment-section">
-                <div class="comment-box" id="comments"></div>
-                <div class="comment-controls">
-                    <input type="text" id="comment-input" placeholder="Bir mesaj yazın..." onkeypress="if(event.key==='Enter') addComment()">
-                    <button onclick="addComment()">Gönder</button>
+            <!-- Kart 2: Açık Beta -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://via.placeholder.com/400x225/222/fff?text=Oyun+Gorseli" alt="Oyun">
+                    <span class="tag open-beta">Açık Beta</span>
+                </div>
+                <div class="card-body">
+                    <div class="platforms">
+                        <span class="platform-icon"><i class="fa-mobile-screen-button"></i> Mobil</span>
+                    </div>
+                    <h3>Realm of Legends Mobile</h3>
+                    <p>Mobil cihazlar için geliştirilen açık dünya MMORPG oyunu açık beta sürecine girdi. Herkes indirebilir!</p>
+                    <a href="#" class="read-more">Detaylar & İndir →</a>
                 </div>
             </div>
+
+            <!-- Kart 3: Tam Sürüm / Duyuru -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://via.placeholder.com/400x225/333/fff?text=Oyun+Gorseli" alt="Oyun">
+                    <span class="tag new-release">Yeni Duyuru</span>
+                </div>
+                <div class="card-body">
+                    <div class="platforms">
+                        <span class="platform-icon"><i class="fa-desktop"></i> PC</span>
+                        <span class="platform-icon"><i class="fa-gamepad"></i> PS5</span>
+                        <span class="platform-icon"><i class="fa-mobile-screen-button"></i> Mobil</span>
+                    </div>
+                    <h3>Project X: Revolution</h3>
+                    <p>Çapraz platform destekli yeni aksiyon oyunu duyuruldu. Yakında kapalı betası başlayacak.</p>
+                    <a href="#" class="read-more">Detayları Oku →</a>
+                </div>
+            </div>
+
         </div>
+    </section>
 
-    </div>
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 OyunRadar - Tüm Hakları Saklıdır.</p>
+    </footer>
 
-    <script>
-        let currentUser = "";
-        let localComments = JSON.parse(localStorage.getItem('ensar_zone_msg')) || [
-            { isim: "SİSTEM", yorum: "Ensar Zone v1.5.1 arayüz güncellemesi başarıyla yüklendi." }
-        ];
-
-        function handleSystemLogin() {
-            const user = document.getElementById('login-user').value.trim();
-            const pass = document.getElementById('login-pass').value.trim();
-            const statusMsg = document.getElementById('status-msg');
-            const spinner = document.getElementById('login-spinner');
-            const statusBox = document.getElementById('login-status-text');
-
-            if (user === "" || pass === "") { 
-                statusBox.className = "login-status status-error";
-                spinner.style.display = "none";
-                statusMsg.innerText = "Lütfen tüm alanları doldurun."; 
-                return; 
-            }
-
-            statusBox.className = "login-status";
-            spinner.style.display = "inline-block";
-            statusMsg.innerText = "Giriş yapılıyor, lütfen bekleyin...";
-
-            setTimeout(() => {
-                if (user === "En sar") {
-                    if (pass === "1453") { 
-                        currentUser = "Ensar 👑"; 
-                    } else { 
-                        statusBox.className = "login-status status-error";
-                        spinner.style.display = "none";
-                        statusMsg.innerText = "Hatalı şifre girdiniz."; 
-                        return; 
-                    }
-                } else { 
-                    currentUser = user; 
-                }
-
-                statusBox.style.color = "#34d399";
-                spinner.style.display = "none";
-                statusMsg.innerText = "Başarılı! Panele yönlendiriliyorsunuz...";
-
-                setTimeout(() => {
-                    document.getElementById('user-display').innerText = "Kullanıcı: " + currentUser;
-                    document.getElementById('login-panel').style.display = 'none';
-                    document.getElementById('main-panel').style.display = 'block';
-                    loadComments();
-                    setInterval(loadComments, 3000);
-                }, 1000); // Bekleme süresi 1 saniyeye indirildi.
-
-            }, 800);
-        }
-
-        function switchMainTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-
-            document.getElementById(`main-tab-${tabId}`).classList.add('active');
-            document.getElementById(`m-btn-${tabId}`).classList.add('active');
-        }
-
-        function askAI(id) {
-            const box = document.getElementById('ai-box');
-            box.style.display = 'block';
-
-            if(id === 1) { box.innerHTML = "💡 <b>Asistan:</b> v1.5.1 sürümü göz yormayan modern tasarım dili, minimalist menüleri ve geliştirilmiş performans yapısına sahiptir."; }
-            else if(id === 2) { box.innerHTML = "💡 <b>Asistan:</b> Görev ve başarı alanları sitenin hızlanması ve daha sade bir deneyim sunması amacıyla kaldırılarak temizlenmiştir."; }
-            else if(id === 3) { box.innerHTML = "💡 <b>Asistan:</b> Ensar, bu modern bulut panelinin kurucusu, tam yetkili yöneticisi ve baş geliştiricisidir."; }
-            else if(id === 4) { box.innerHTML = "💡 <b>Asistan:</b> Sistem şu an planlanan hedeflerde 'Aşama 1: Tasarım Devrimi' sürecindedir."; }
-        }
-
-        function loadComments() {
-            const box = document.getElementById('comments');
-            box.innerHTML = "";
-            try { localComments = JSON.parse(localStorage.getItem('ensar_zone_msg')) || []; } catch(e){}
-            localComments.forEach(msg => {
-                let nameStyle = msg.isim && msg.isim.includes('👑') ? 'color:var(--accent-color); font-weight:600;' : 'color:var(--text-main); font-weight:600;';
-                box.innerHTML += `<div class="comment-msg"><span style="${nameStyle}">${msg.isim}:</span> <span style="color:var(--text-muted);">${msg.yorum}</span></div>`;
-            });
-            box.scrollTop = box.scrollHeight;
-        }
-
-        function addComment() {
-            const input = document.getElementById('comment-input');
-            const text = input.value.trim();
-            if(text !== "") {
-                localComments.push({ isim: currentUser, yorum: text });
-                localStorage.setItem('ensar_zone_msg', JSON.stringify(localComments));
-                input.value = "";
-                loadComments();
-            }
-        }
-    </script>
 </body>
 </html>
